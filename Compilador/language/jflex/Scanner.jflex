@@ -62,7 +62,7 @@ FloatLiteral = (0 | [1-9][0-9]*)\.[0-9]+
 					
 {FloatLiteral} 		{ return symbol(sym.DECIMAL, yytext()); }
 
-{WhiteSpace}        { /* ignore LALALA */ }
+{WhiteSpace}        { /* ignore*/ }
 
 . 					{
 						throw new ParsingException("Illegal character at line " + yyline + ", column " + yycolumn + " >> " + yytext());
