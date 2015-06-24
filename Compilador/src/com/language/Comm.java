@@ -1,6 +1,6 @@
 package com.language;
 
-public abstract class Sentencia {
+public abstract class Comm {
 	Contexto context;
 	abstract void evaluar();
 	
