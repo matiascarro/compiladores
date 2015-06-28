@@ -44,6 +44,8 @@ public class Asignacion extends Comm {
 		// TODO Buscar la variable a la cual queremos asignar el valor
 		//e = c;
 		c.evaluar(contexto);
+		Variable v = e.evaluar(contexto);
+		contexto.actualizarOCrearVariable(v);
 		
 		
 	}

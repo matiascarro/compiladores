@@ -6,6 +6,7 @@ public class Variable {
 	int i;
 	boolean b;
 	long l;
+	String nombre;
 	
 	TipoVariable tipo;
 
@@ -14,7 +15,9 @@ public class Variable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Variable(float f, String s, int i, boolean b, long l,
+	
+
+	public Variable(float f, String s, int i, boolean b, long l, String nombre,
 			TipoVariable tipo) {
 		super();
 		this.f = f;
@@ -22,8 +25,11 @@ public class Variable {
 		this.i = i;
 		this.b = b;
 		this.l = l;
+		this.nombre = nombre;
 		this.tipo = tipo;
 	}
+
+
 
 	public float getF() {
 		return f;
@@ -72,6 +78,20 @@ public class Variable {
 	public void setTipo(TipoVariable tipo) {
 		this.tipo = tipo;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+	
 	
 	
 }

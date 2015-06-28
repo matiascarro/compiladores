@@ -5,25 +5,25 @@ import java.util.Map;
 
 
 public class Contexto {
-	Map<String, TipoVariable> variables;
+	Map<String, Variable> variables;
 	int ScopeGlobal;
 	
 	public Contexto() {
 		super();
-		variables = new HashMap<String, TipoVariable>();
+		variables = new HashMap<String, Variable>();
 	}
 
-	public Contexto(Map<String, TipoVariable> variables, int scopeGlobal) {
+	public Contexto(Map<String, Variable> variables, int scopeGlobal) {
 		super();
 		this.variables = variables;
 		ScopeGlobal = scopeGlobal;
 	}
 	
-	public Map<String, TipoVariable> getVariables() {
+	public Map<String, Variable> getVariables() {
 		return variables;
 	}
 	
-	public void setVariables(Map<String, TipoVariable> variables) {
+	public void setVariables(Map<String, Variable> variables) {
 		this.variables = variables;
 	}
 	
@@ -45,6 +45,11 @@ public class Contexto {
 	
 	public void disminuirScope (){
 		ScopeGlobal--;
+	}
+	
+	public void actualizarOCrearVariable(Variable v){
+		variables.put(this.calcScopeVariable(v.getNombre()),v);
+		
 	}
 	
 }
