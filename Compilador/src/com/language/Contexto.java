@@ -48,8 +48,12 @@ public class Contexto {
 	}
 	
 	public void actualizarOCrearVariable(Variable v){
+		//Si existe la variable tengo que setear tb el tipo
 		variables.put(this.calcScopeVariable(v.getNombre()),v);
-		
+	}
+	
+	public Variable buscarVariable(String nombreVariable) {
+		return variables.get(nombreVariable);
 	}
 	
 }
