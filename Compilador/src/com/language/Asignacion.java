@@ -64,9 +64,10 @@ public class Asignacion extends Comm {
 	void evaluar(Contexto contexto) throws Exception {
 		// TODO Buscar la variable a la cual queremos asignar el valor
 		//e = c;
-		Variable v = e.evaluar(contexto);
-		v.setNombre(nomVariable);
-		contexto.actualizarOCrearVariable(v);
+		//d = 8 //Asignacion(Const(8))
+		Valor v = e.evaluar(contexto);
+		
+		contexto.actualizarOCrearVariable(v,nomVariable);
 		
 		
 	}

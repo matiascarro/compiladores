@@ -5,25 +5,25 @@ import java.util.Map;
 
 
 public class Contexto {
-	Map<String, Variable> variables;
+	Map<String, Valor> variables;
 	int ScopeGlobal;
 	
 	public Contexto() {
 		super();
-		variables = new HashMap<String, Variable>();
+		variables = new HashMap<String, Valor>();
 	}
 
-	public Contexto(Map<String, Variable> variables, int scopeGlobal) {
+	public Contexto(Map<String, Valor> variables, int scopeGlobal) {
 		super();
 		this.variables = variables;
 		ScopeGlobal = scopeGlobal;
 	}
 	
-	public Map<String, Variable> getVariables() {
+	public Map<String, Valor> getVariables() {
 		return variables;
 	}
 	
-	public void setVariables(Map<String, Variable> variables) {
+	public void setVariables(Map<String, Valor> variables) {
 		this.variables = variables;
 	}
 	
@@ -47,12 +47,12 @@ public class Contexto {
 		ScopeGlobal--;
 	}
 	
-	public void actualizarOCrearVariable(Variable v){
+	public void actualizarOCrearVariable(Valor v, String nomVariable){
 		//Si existe la variable tengo que setear tb el tipo
-		variables.put(this.calcScopeVariable(v.getNombre()),v);
+		variables.put(this.calcScopeVariable(nomVariable),v);
 	}
 	
-	public Variable buscarVariable(String nombreVariable) {
+	public Valor buscarVariable(String nombreVariable) {
 		return variables.get(nombreVariable);
 	}
 	
