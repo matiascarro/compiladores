@@ -63,8 +63,8 @@ public class Asignacion extends Comm {
 	@Override
 	void evaluar(Contexto contexto) throws Exception {
 		// TODO Buscar la variable a la cual queremos asignar el valor
-		//e = c;
 		//d = 8 //Asignacion(Const(8))
+		
 		Valor v = e.evaluar(contexto);
 		
 		contexto.actualizarOCrearVariable(v,nomVariable);

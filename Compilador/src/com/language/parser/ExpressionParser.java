@@ -15,9 +15,10 @@ public class ExpressionParser {
 		ByteArrayInputStream bais = new ByteArrayInputStream(expbytes);
 
 		Parser parser = new Parser(new Scanner(bais));
+		
 		try {
+			
 			Symbol topsym = parser.parse();
-
 			Expression exp = (Expression) topsym.value;
 			return exp;
 

@@ -46,8 +46,9 @@ FloatLiteral = (0 | [1-9][0-9]*)\.[0-9]+
 
 "+" 				{ return symbol(sym.PLUS, "+"); }
 "-" 				{ return symbol(sym.MINUS, "-"); }
-"*" 				{ return symbol(sym.TIMES, "*"); }
+
 "/" 				{ return symbol(sym.DIV, "/"); }
+"=" 				{ return symbol(sym.EQUAL, "="); }
 
 "(" 				{ return symbol(sym.LPAREN, "("); }
 ")" 				{ return symbol(sym.RPAREN, ")"); }

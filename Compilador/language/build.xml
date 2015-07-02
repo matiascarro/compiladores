@@ -1,4 +1,4 @@
-<project name="Compiler" default="cup" basedir=".">
+<project name="Compiler" default="jflex" basedir=".">
 
 	<property name="cup" location="cup" />
 	<property name="jflex" location="jflex" />

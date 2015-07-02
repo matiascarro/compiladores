@@ -2,41 +2,38 @@ package com.language.parser;
 
 import java.util.*;
 import java_cup.runtime.*;
-import com.language.*;
 import com.language.model.expression.*;
 import com.language.exceptions.*;
 
 terminal PLUS, MINUS;
 terminal TIMES, DIV;
-terminal EQUAL;
-
 terminal LPAREN, RPAREN;
 
 terminal String ID;
-terminal String INTEGRAL;
-terminal String DECIMAL;
+terminal String INTEGER;
+terminal String FLOAT;
+terminal String FALSE;
+terminal String TRUE;
 terminal String STRING;
 
 non terminal Expression expr;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
-precedence left EQUAL;
 
 expr	::= INTEGRAL:i
 			{:
-				Valor v = new Valor(0, "", i, 0, 0, TipoVariable.INT);
-				RESULT = new Const(v);
+				RESULT = new Expression(i);
 			:}
 
 		| DECIMAL:d
 			{:
-				RESULT = new Const(d);
+				RESULT = new Expression(d);
 			:}
 
 		| STRING:s
 			{:
-				RESULT = new Const(s);
+				RESULT = new Expression(s);
 			:}
 
 		| expr:l PLUS expr:r
@@ -46,7 +43,7 @@ expr	::= INTEGRAL:i
 
 		| expr:l MINUS expr:r
 			{:
-				RESULT = new OperacionBinaria(l, r, operacion);
+				RESULT = new Expression("-", l, r);
 			:}
 
 		| expr:l TIMES expr:r
@@ -57,12 +54,6 @@ expr	::= INTEGRAL:i
 		| expr:l DIV expr:r
 			{:
 				RESULT = new Expression("/", l, r);
-			:}
-
-		| STRING:nombreVar EQUAL expr:e
-			{:
-				
-				RESULT = new Asignacion(e, nombreVar);
 			:}
 
 		| ID:i
