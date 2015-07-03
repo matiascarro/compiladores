@@ -1,4 +1,4 @@
-package com.language.parser;
+package com.language;
 
 import java.util.*;
 import java_cup.runtime.*;
@@ -9,20 +9,50 @@ import com.language.exceptions.*;
 terminal PLUS, MINUS;
 terminal TIMES, DIV;
 terminal EQUAL;
-
+terminal SEPARADOR;
 terminal LPAREN, RPAREN;
+terminal EOF;
 
 terminal String ID;
 terminal String INTEGRAL;
 terminal String DECIMAL;
 terminal String STRING;
 
-non terminal Expression expr;
+non terminal Expr expr;
+non terminal Comm comm;
+non terminal ListComm lcomm;
+non terminal Programa prog;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
 precedence left EQUAL;
 
+///habria que crear el programa y setear la lista de las sentencias
+prog	::=		|lcom EOF
+				{:
+					
+					RESULT = new Programa(lcom);
+				:}
+
+//lista que va acumulando las sentencias
+lcom		::= |lcomm:l SEPARADOR comm:c
+				{:
+					
+					RESULT = new ListComm(c, l);
+				:}
+				|comm: c
+				{:
+					
+					RESULT = new ListComm(l);
+				:}
+			
+			
+comm	::= | STRING:nombreVar EQUAL expr:e
+			{:
+				
+				RESULT = new Asignacion(e, nombreVar);
+			:}
+			
 expr	::= INTEGRAL:i
 			{:
 				Valor v = new Valor(0, "", i, 0, 0, TipoVariable.INT);
@@ -59,11 +89,6 @@ expr	::= INTEGRAL:i
 				RESULT = new Expression("/", l, r);
 			:}
 
-		| STRING:nombreVar EQUAL expr:e
-			{:
-				
-				RESULT = new Asignacion(e, nombreVar);
-			:}
 
 		| ID:i
 			{:
