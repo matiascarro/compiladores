@@ -10,15 +10,16 @@ terminal PLUS, MINUS;
 terminal TIMES, DIV;
 terminal EQUAL;
 terminal SEPARADOR;
+terminal END;
 terminal LPAREN, RPAREN;
-terminal EOF;
 
 terminal String ID;
 terminal String INTEGRAL;
 terminal String DECIMAL;
 terminal String STRING;
 
-non terminal Expr expr;
+non terminal Expr expre;
+non terminal Expression expr;
 non terminal Comm comm;
 non terminal ListComm lcomm;
 non terminal Programa prog;
@@ -27,46 +28,48 @@ precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
 precedence left EQUAL;
 
-///habria que crear el programa y setear la lista de las sentencias
-prog	::=		|lcom EOF
+
+//habria que crear el programa y setear la lista de las sentencias
+prog	::=	lcomm:l END
 				{:
 					
-					RESULT = new Programa(lcom);
-				:}
+					RESULT = new Programa(l);
+				:};
 
 //lista que va acumulando las sentencias
-lcom		::= |lcomm:l SEPARADOR comm:c
+lcomm		::= lcomm:l SEPARADOR comm:c
 				{:
 					
 					RESULT = new ListComm(c, l);
 				:}
-				|comm: c
+		
+		| comm: c
 				{:
 					
-					RESULT = new ListComm(l);
-				:}
+					RESULT = new ListComm(c);
+				:};
 			
 			
-comm	::= | STRING:nombreVar EQUAL expr:e
+comm	::=  STRING:nombreVar EQUAL expre:e
 			{:
 				
 				RESULT = new Asignacion(e, nombreVar);
-			:}
+			:};
 			
-expr	::= INTEGRAL:i
+expre	::= INTEGRAL:i
 			{:
-				Valor v = new Valor(0, "", i, 0, 0, TipoVariable.INT);
+				Valor v = new Valor(0, "", 0, false, 0, TipoVariable.INT);
 				RESULT = new Const(v);
-			:}
+			:};
 
-		| DECIMAL:d
+expr	::= DECIMAL:d
 			{:
-				RESULT = new Const(d);
+				RESULT = new Expression(d);
 			:}
 
 		| STRING:s
 			{:
-				RESULT = new Const(s);
+				RESULT = new Expression(s);
 			:}
 
 		| expr:l PLUS expr:r
@@ -76,7 +79,7 @@ expr	::= INTEGRAL:i
 
 		| expr:l MINUS expr:r
 			{:
-				RESULT = new OperacionBinaria(l, r, operacion);
+				RESULT = new Expression("-", l, r);
 			:}
 
 		| expr:l TIMES expr:r

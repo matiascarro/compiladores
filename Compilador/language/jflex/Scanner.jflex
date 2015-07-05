@@ -53,6 +53,10 @@ FloatLiteral = (0 | [1-9][0-9]*)\.[0-9]+
 "(" 				{ return symbol(sym.LPAREN, "("); }
 ")" 				{ return symbol(sym.RPAREN, ")"); }
 
+";" 				{ return symbol(sym.SEPARADOR, ";"); }
+
+"end" 				{ return symbol(sym.END, "end"); }
+
 \"([^\"\r\n\t]*)\"	{ return symbol(sym.STRING, yytext()); }
 
 '([^\"\r\n\t]*)'	{ return symbol(sym.STRING, yytext()); }
