@@ -253,7 +253,7 @@ class CUP$Parser$actions {
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
-				Valor v = new Valor(0, "", 0, false, 0, TipoVariable.INT);
+				Valor v = new Valor(0, "", 0, false, 0, TipoValor.INT);
 				RESULT = new Const(v);
 			
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expre",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

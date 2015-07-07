@@ -1,13 +1,13 @@
 package com.language;
 
 public class Valor {
-	float f;
-	String s;
-	int i;
-	boolean b;
-	long l;
+	private float f;
+	private String s;
+	private int i;
+	private boolean b;
+	private long l;
 	
-	TipoVariable tipo;
+	private TipoValor tipo;
 
 	public Valor() {
 		super();
@@ -15,7 +15,7 @@ public class Valor {
 	}
 
 	public Valor(float f, String s, int i, boolean b, long l,
-			TipoVariable tipo) {
+			TipoValor tipo) {
 		super();
 		this.f = f;
 		this.s = s;
@@ -65,11 +65,11 @@ public class Valor {
 		this.l = l;
 	}
 
-	public TipoVariable getTipo() {
+	public TipoValor getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoVariable tipo) {
+	public void setTipo(TipoValor tipo) {
 		this.tipo = tipo;
 	}
 	

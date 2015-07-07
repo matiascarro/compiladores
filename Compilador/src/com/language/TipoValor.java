@@ -1,5 +1,5 @@
 package com.language;
 
-public enum TipoVariable {
+public enum TipoValor {
 	INT, LONG, FLOAT, BOOL, STRING  
 }

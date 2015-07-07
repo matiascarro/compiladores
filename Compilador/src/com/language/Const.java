@@ -1,5 +1,7 @@
 package com.language;
 
+import com.language.exceptions.ParsingException;
+
 public class Const extends Expr{
 
 	Valor	v;//8
@@ -33,7 +35,7 @@ public class Const extends Expr{
 
 
 	@Override
-	Valor evaluar(Contexto contexto) throws Exception {
+	Valor evaluar(Contexto contexto) throws ParsingException {
 		return v;
 	}
 
