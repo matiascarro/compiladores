@@ -28,6 +28,8 @@ public class Valor {
 	public float getF() {
 		return f;
 	}
+	
+	
 
 	public void setF(float f) {
 		this.f = f;

@@ -11,6 +11,60 @@ public class OperacionBinaria extends Expr{
 	TipoOperadorBinario op;
 	
 	
+	
+	public OperacionBinaria(Expr e1, Expr e2, TipoOperadorBinario op) {
+		super();
+		this.e1 = e1;
+		this.e2 = e2;
+		this.op = op;
+	}
+	
+	
+
+	public OperacionBinaria() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
+
+	public Expr getE1() {
+		return e1;
+	}
+
+
+
+	public void setE1(Expr e1) {
+		this.e1 = e1;
+	}
+
+
+
+	public Expr getE2() {
+		return e2;
+	}
+
+
+
+	public void setE2(Expr e2) {
+		this.e2 = e2;
+	}
+
+
+
+	public TipoOperadorBinario getOp() {
+		return op;
+	}
+
+
+
+	public void setOp(TipoOperadorBinario op) {
+		this.op = op;
+	}
+
+
+
 	private Valor calcularTipoOperadorMatematicoSuma(Valor v1, Valor v2) throws ExecutionException, ParsingException{
 		
 		Valor ret;
@@ -30,7 +84,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(ret.getL() + ret.getL());
+				ret.setL(v1.getL() + v2.getL());
 				return ret;
 
 			default:
@@ -99,7 +153,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(ret.getL() - ret.getL());
+				ret.setL(v1.getL() - v2.getL());
 				return ret;
 
 			default:
@@ -192,7 +246,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.FLOAT);
-				ret.setF(ret.getL() / ret.getL());
+				ret.setF(v1.getL() / v2.getL());
 				return ret;
 
 			default:
@@ -286,7 +340,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(ret.getL()%ret.getL());
+				ret.setL(v1.getL()%v2.getL());
 				return ret;
 
 			default:
@@ -356,7 +410,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(new Double(Math.pow(ret.getL() , ret.getL())).longValue());
+				ret.setL(new Double(Math.pow(v1.getL() , v2.getL())).longValue());
 				return ret;
 
 			default:
@@ -455,7 +509,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(ret.getL() % ret.getL());
+				ret.setL(v1.getL() % v2.getL());
 				return ret;
 
 			default:
@@ -530,7 +584,7 @@ public class OperacionBinaria extends Expr{
 			case LONG:
 				ret = new Valor();
 				ret.setTipo(TipoValor.LONG);
-				ret.setL(ret.getL() * ret.getL());
+				ret.setL(v1.getL() * v2.getL());
 				return ret;
 
 			default:
@@ -585,7 +639,7 @@ public class OperacionBinaria extends Expr{
 	Valor evaluar(Contexto contexto) throws ParsingException, ExecutionException {
 		// TODO Auto-generated method stub
 		// Evaluo por ej 3 + 3  
-		Valor v1, v2, ret;
+		Valor v1, v2;
 		
 		
 		v1 = e1.evaluar(contexto);
