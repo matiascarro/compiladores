@@ -6,12 +6,13 @@ import com.language.*;
 import com.language.model.expression.*;
 import com.language.exceptions.*;
 
-terminal PLUS, MINUS;
-terminal TIMES, DIV;
+terminal SUMA, RESTA, DIVISION, MULTIPLICACION, EXPONENTE, DIVISION_ENTERA, MODULO;
+terminal AND, OR, XOR, SHIFT_IZQ, SHIFT_DER, COMPLEMENTO;
 terminal EQUAL;
 terminal SEPARADOR;
 terminal END;
 terminal LPAREN, RPAREN;
+
 
 terminal String ID;
 terminal String INTEGRAL;
@@ -23,6 +24,7 @@ non terminal Expression expr;
 non terminal Comm comm;
 non terminal ListComm lcomm;
 non terminal Programa prog;
+
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
@@ -56,42 +58,78 @@ comm	::=  STRING:nombreVar EQUAL expre:e
 				RESULT = new Asignacion(e, nombreVar);
 			:};
 			
-expre	::= INTEGRAL:i
+expr	::= INTEGRAL:i
 			{:
-				Valor v = new Valor(0, "", 0, false, 0, TipoVariable.INT);
+				Valor v = new Valor(0, null, i, false, 0, TipoValor.INT);
 				RESULT = new Const(v);
 			:};
 
-expr	::= DECIMAL:d
+	 	| FLOAT:f
 			{:
-				RESULT = new Expression(d);
+				Valor v = new Valor(f, null, 0, false, 0, TipoValor.FLOAT);
+				RESULT = new Const(v);
 			:}
 
 		| STRING:s
 			{:
-				RESULT = new Expression(s);
+				Valor v = new Valor(0, s, 0, false, 0, TipoValor.STRING);
+				RESULT = new Const(v);
 			:}
-
-		| expr:l PLUS expr:r
+			
+		| BOOLEAN:b
 			{:
-				RESULT = new Expression("+", l, r);
+				Valor v = new Valor(0, null, 0, b, 0, TipoValor.BOOL);
+				RESULT = new Const(v);
 			:}
-
-		| expr:l MINUS expr:r
+			
+		| LONG:l
 			{:
-				RESULT = new Expression("-", l, r);
+				Valor v = new Valor(0, null, 0,false, l, TipoValor.LONG);
+				RESULT = new Const(v);
 			:}
+			
+			
+//*********************operacion binaria************************
 
-		| expr:l TIMES expr:r
+		| expr:l SUMA expr:r
 			{:
-				RESULT = new Expression("*", l, r);
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.SUMA);
 			:}
-
-		| expr:l DIV expr:r
+ 
+		| expr:l RESTA expr:r
 			{:
-				RESULT = new Expression("/", l, r);
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.RESTA);
 			:}
 
+		| expr:l DIVISION expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.DIVISION);
+			:}
+
+		| expr:l MULTIPLICACION expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.MULTIPLICACION);
+			:}
+			
+		| expr:l EXPONENTE expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.EXPONENTE);
+			:}
+			
+		| expr:l DIVISION expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.DIVISION);
+			:}
+			
+		| expr:l DIVISION_ENTERA expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.DIVISION_ENTERA);
+			:}
+			
+		| expr:l MODULO expr:r
+			{:
+				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.MODULO);
+			:}
 
 		| ID:i
 			{:
@@ -102,4 +140,86 @@ expr	::= DECIMAL:d
 			{:
 				RESULT = e;
 			:}
+			
+//*******************operacion bitwise*******************
+//AND, OR, XOR, SHIFT_IZQ, SHIFT_DER, COMPLEMENTO
+		| expr:l AND expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.AND);
+			:}
+		
+		| expr:l OR expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.OR);
+			:}
+		 
+		| expr:l XOR expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.XOR);
+			:}
+		 
+		| expr:l SHIFT_IZQ expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.SHIFT_IZQ);
+			:}
+		
+		| expr:l SHIFT_DER expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.SHIFT_DER);
+			:} 
+		
+		| expr:l COMPLEMENTO
+			{:
+				RESULT = new OperacionBitwise(l,null,TipoOperadorBitwise.COMPLEMENTO);
+			:}   
+		
+//***************Operaciones booleanas***********************************
+//AND, OR, NEGACION, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL		
+		| expr:l AND expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.AND);
+			:}
+		
+		| expr:l OR expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.OR);
+			:}
+		 
+		| expr:l IGUAL expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.IGUAL);
+			:}
+		 
+		| expr:l DISTINTO expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.DISTINTO);
+			:}
+		
+		| expr:l MENOR expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.MENOR);
+			:} 
+		
+		| expr:l NEGACION
+			{:
+				RESULT = new OperacionBitwise(l,null,TipoOperadorBitwise.NEGACION);
+			:}
+			
+		| expr:l MAYOR expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.MAYOR);
+			:}
+			
+		| expr:l MENOR_IGUAL expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.MENOR_IGUAL);
+			:}
+			
+		| expr:l MAYOR_IGUAL expr:r
+			{:
+				RESULT = new OperacionBitwise(l,r,TipoOperadorBitwise.MAYOR_IGUAL);
+			:}
+			
+			
+		
 		;
