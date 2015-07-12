@@ -27,7 +27,7 @@ public class While extends Comm{
 				aux = aux.getSiguiente();
 				sent = aux.getSentencia();
 				sent.evaluar(contexto);
-			}
+			} 
 			
 			v = op.evaluar(contexto);
 			

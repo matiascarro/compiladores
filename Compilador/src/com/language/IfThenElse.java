@@ -11,7 +11,7 @@ public class IfThenElse extends Comm{
 	public IfThenElse(OperacionBooleana o, ListComm t, ListComm e) {
 		op = o;
 		lthen = t;
-		lelse = e;
+		lelse = e; 
 	}
 	
 	@Override

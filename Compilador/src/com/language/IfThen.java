@@ -9,7 +9,7 @@ public class IfThen extends Comm{
 
 	public IfThen(OperacionBooleana o, ListComm l) {
 		op = o;
-		lc = l;
+		lc = l; 
 	}
 	
 	@Override
