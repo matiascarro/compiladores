@@ -15,6 +15,7 @@ public class ExpressionParser {
 		byte[] expbytes = expText.getBytes();
 		ByteArrayInputStream bais = new ByteArrayInputStream(expbytes);
 
+		Scanner s = new Scanner(bais);
 		Parser parser = new Parser(new Scanner(bais));
 		
 		try {

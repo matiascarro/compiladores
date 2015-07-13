@@ -49,7 +49,7 @@ lcomm		::= lcomm:l SEPARADOR comm:c
 					RESULT = new ListComm(c, l);
 				:}
 		
-		| comm: c
+		| comm: c SEPARADOR
 				{:
 					
 					RESULT = new ListComm(c);

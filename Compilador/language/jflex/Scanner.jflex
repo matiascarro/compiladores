@@ -89,11 +89,11 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 {Identifier}		{ return symbol(sym.ID, yytext()); }
 
-{IntegerLiteral}	{ return symbol(sym.INT, new Integer(yytext()).intValue()); }
+{IntegerLiteral}	{ return symbol(sym.INT, yytext()); }
 
-{DecLongLiteral}	{ return symbol(sym.LONG, new Long(yytext()).longValue()); }
+{DecLongLiteral}	{ return symbol(sym.LONG, yytext()); }
 
-{FloatLiteral}		{ return symbol(sym.FLOAT, new Float(yytext()).floatValue()); }
+{FloatLiteral}		{ return symbol(sym.FLOAT, yytext()); }
 					
 
 
