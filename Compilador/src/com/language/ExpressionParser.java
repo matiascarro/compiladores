@@ -1,4 +1,5 @@
-package com.language.parser;
+
+package com.language;
 
 import java.io.ByteArrayInputStream;
 

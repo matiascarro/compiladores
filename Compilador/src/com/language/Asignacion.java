@@ -3,13 +3,13 @@ package com.language;
 public class Asignacion extends Comm {
 
 	Expr	e;
-	String	nomVariable;
+	Var		nomVariable;
 	
 	
 	
 
 
-	public Asignacion(Expr e, String nomVariable) {
+	public Asignacion(Expr e, Var nomVariable) {
 		super();
 		this.e = e;
 		this.nomVariable = nomVariable;
@@ -44,7 +44,7 @@ public class Asignacion extends Comm {
 
 
 
-	public String getNomVariable() {
+	public Var getNomVariable() {
 		return nomVariable;
 	}
 
@@ -52,7 +52,7 @@ public class Asignacion extends Comm {
 
 
 
-	public void setNomVariable(String nomVariable) {
+	public void setNomVariable(Var nomVariable) {
 		this.nomVariable = nomVariable;
 	}
 
@@ -67,7 +67,7 @@ public class Asignacion extends Comm {
 		
 		Valor v = e.evaluar(contexto);
 		
-		contexto.actualizarOCrearVariable(v,nomVariable);
+		contexto.actualizarOCrearVariable(v,nomVariable.getNombreVariable());
 		
 		
 	}
