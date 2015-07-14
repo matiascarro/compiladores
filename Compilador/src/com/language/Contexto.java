@@ -56,4 +56,10 @@ public class Contexto {
 		return variables.get(nombreVariable);
 	}
 	
+	public void imprimir (){
+		String s;
+		s = variables.toString();
+		System.out.println(s);
+	}
+	
 }

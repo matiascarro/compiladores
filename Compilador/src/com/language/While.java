@@ -2,6 +2,8 @@ package com.language;
 
 import java.util.Iterator;
 
+import com.language.exceptions.ExecutionException;
+
 public class While extends Comm{
 	
 	OperacionBooleana op;
@@ -20,19 +22,24 @@ public class While extends Comm{
 		
 		ListComm aux = lc;
 		
-		while (v.isB()){
-			Comm sent = aux.getSentencia();
-			sent.evaluar(contexto);
-			while (aux.getSiguiente() != null){
-				aux = aux.getSiguiente();
-				sent = aux.getSentencia();
-				sent.evaluar(contexto);
-			} 
-			
-			v = op.evaluar(contexto);
-			
-		}
+		if (v.getTipo() == TipoValor.BOOL){
 		
+			while (v.isB()){
+				Comm sent = aux.getSentencia();
+				sent.evaluar(contexto);
+				while (aux.getSiguiente() != null){
+					aux = aux.getSiguiente();
+					sent = aux.getSentencia();
+					sent.evaluar(contexto);
+				} 
+				
+				v = op.evaluar(contexto);
+				
+			}
+		
+		} else {
+			throw new ExecutionException("Tipo inválido - Sentencia while");
+		}
 	}
 
 }

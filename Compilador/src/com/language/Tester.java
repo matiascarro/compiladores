@@ -14,6 +14,8 @@ public class Tester {
 		Programa prog = ProgramaParser.parse(exptext);
 		
 		System.out.println("Expresion obtenida: ");
+		
+		prog.imprimirContexto();
 		//System.out.println(expobj.toString());
 		
 	}

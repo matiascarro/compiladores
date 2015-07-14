@@ -2,6 +2,8 @@ package com.language;
 
 import java.util.Iterator;
 
+import com.language.exceptions.ExecutionException;
+
 public class IfThen extends Comm{
 	
 	OperacionBooleana op;
@@ -20,17 +22,22 @@ public class IfThen extends Comm{
 		
 		ListComm aux = lc;
 		
-		if (v.isB()){
-			Comm sent = aux.getSentencia();
-			sent.evaluar(contexto);
-			while (aux.getSiguiente() != null){
-				aux = aux.getSiguiente();
-				sent = aux.getSentencia();
-				sent.evaluar(contexto);
-			}
+		if (v.getTipo() == TipoValor.BOOL){
 			
-		}
+			if (v.isB()){
+				Comm sent = aux.getSentencia();
+				sent.evaluar(contexto);
+				while (aux.getSiguiente() != null){
+					aux = aux.getSiguiente();
+					sent = aux.getSentencia();
+					sent.evaluar(contexto);
+				}
+				
+			}
 		
+		} else {
+			throw new ExecutionException("Tipo inválido - Sentencia if");
+		}
 	}
 
 }

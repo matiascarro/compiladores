@@ -2,6 +2,8 @@ package com.language;
 
 import java.util.Iterator;
 
+import com.language.exceptions.ExecutionException;
+
 public class IfThenElse extends Comm{
 	
 	OperacionBooleana op;
@@ -23,31 +25,37 @@ public class IfThenElse extends Comm{
 		ListComm aux;
 		Comm sent;
 		
-		if (v.isB()){
-			
-			aux = lthen;
-			
-			sent = aux.getSentencia();
-			sent.evaluar(contexto);
-			
-			while (aux.getSiguiente() != null){
-				aux = aux.getSiguiente();
+		if (v.getTipo() == TipoValor.BOOL){
+		
+			if (v.isB()){
+				
+				aux = lthen;
+				
 				sent = aux.getSentencia();
 				sent.evaluar(contexto);
+				
+				while (aux.getSiguiente() != null){
+					aux = aux.getSiguiente();
+					sent = aux.getSentencia();
+					sent.evaluar(contexto);
+				}
+				
+			} else {
+				
+				aux = lelse;
+				
+				sent = aux.getSentencia();
+				sent.evaluar(contexto);
+				
+				while (aux.getSiguiente() != null){
+					aux = aux.getSiguiente();
+					sent = aux.getSentencia();
+					sent.evaluar(contexto);
+				}
 			}
 			
 		} else {
-			
-			aux = lelse;
-			
-			sent = aux.getSentencia();
-			sent.evaluar(contexto);
-			
-			while (aux.getSiguiente() != null){
-				aux = aux.getSiguiente();
-				sent = aux.getSentencia();
-				sent.evaluar(contexto);
-			}
+			throw new ExecutionException("Tipo inválido - Sentencia if else");
 		}
 		
 	}

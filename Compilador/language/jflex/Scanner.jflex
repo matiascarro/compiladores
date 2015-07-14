@@ -79,9 +79,22 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 "False"				{ return symbol(sym.BOOLEAN, false); }
 "True"				{ return symbol(sym.BOOLEAN, true); }
 
+"[" 				{ return symbol(sym.LPARENCUADRADO, "["); }
+"]" 				{ return symbol(sym.RPARENCUADRADO, "]"); }
+
+"," 				{ return symbol(sym.COMMA, ","); }
+
+"{" 				{ return symbol(sym.LPARENCORCHETE, "{"); }
+"}" 				{ return symbol(sym.RPARENCORCHETE, "}"); }
+
+":" 				{ return symbol(sym.DOSPUNTOS, ":"); }
+
+
 ";" 				{ return symbol(sym.SEPARADOR, ";"); }
 
 "end" 				{ return symbol(sym.END, "end"); }
+
+"print" 			{ return symbol(sym.PRINT, "print"); }
 
 \"([^\"\r\n\t]*)\"	{ return symbol(sym.STRING, yytext()); }
 

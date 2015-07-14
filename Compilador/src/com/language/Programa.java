@@ -44,6 +44,10 @@ public class Programa {
 	public void setContexto(Contexto contexto) {
 		this.contexto = contexto;
 	}
+	
+	public void imprimirContexto(){
+		contexto.imprimir();
+	}
 
 
 

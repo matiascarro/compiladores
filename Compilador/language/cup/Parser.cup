@@ -13,7 +13,8 @@ terminal EQUAL;
 terminal SEPARADOR;
 terminal END;
 terminal LPAREN, RPAREN;
-
+terminal PRINT;
+terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, DOSPUNTOS;
 
 terminal String ID;
 terminal String INT;
@@ -27,6 +28,9 @@ non terminal Expr expr;
 non terminal Comm comm;
 non terminal ListComm lcomm;
 non terminal Programa prog;
+
+non terminal EstructuraLista elista;
+non terminal EstructuraLista contlista;
 
 
 precedence left LPAREN, RPAREN;
@@ -60,7 +64,20 @@ comm	::=  ID:i EQUAL expr:e
 			{:
 				Var v = new Var(i);
 				RESULT = new Asignacion(e, v);
+			:}
+		
+		| PRINT expr:e
+			{:
+				RESULT = new Print(e);
 			:};
+			
+elista	::=  LPARENCUADRADO expr:e RPARENCUADRADO
+			{:
+				RESULT = new EstructuraLista(e);
+			:}
+		
+		;			
+			
 			
 expr	::= INT:i
 			{:
