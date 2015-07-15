@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Contexto {
 	Map<String, Valor> variables;
+	Map<String, Estructurados> listas;
 	int ScopeGlobal;
 	
 	public Contexto() {
@@ -13,9 +14,11 @@ public class Contexto {
 		variables = new HashMap<String, Valor>();
 	}
 
-	public Contexto(Map<String, Valor> variables, int scopeGlobal) {
+	public Contexto(Map<String, Valor> variables,
+			Map<String, Estructurados> listas, int scopeGlobal) {
 		super();
 		this.variables = variables;
+		this.listas = listas;
 		ScopeGlobal = scopeGlobal;
 	}
 	
@@ -35,6 +38,14 @@ public class Contexto {
 		ScopeGlobal = scopeGlobal;
 	}
 	
+	public Map<String, Estructurados> getListas() {
+		return listas;
+	}
+
+	public void setListas(Map<String, Estructurados> listas) {
+		this.listas = listas;
+	}
+
 	public String calcScopeVariable (String nomVariable){
 		return nomVariable + '-' + ScopeGlobal;
 	}
@@ -53,7 +64,17 @@ public class Contexto {
 	}
 	
 	public Valor buscarVariable(String nombreVariable) {
-		return variables.get(nombreVariable);
+		Valor ret = null;
+		for (int i = this.getScopeGlobal(); i>=0; i--){
+			ret = variables.get(nombreVariable + "-" + i);
+			if (ret != null){
+				break;
+				
+			}
+		}
+		return ret;
+		
+		//esto cambia, tiene que buscar en todos los maps y quedarse con la variable con ese nombre con el scope mas grande
 	}
 	
 	public void imprimir (){

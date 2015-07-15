@@ -106,7 +106,7 @@ true				{ return symbol(sym.TRUE, yytext()); }
 "for" 				{ return symbol(sym.FOR, "for"); }
 "in" 				{ return symbol(sym.IN, "in"); }
 
-
+"print" 			{ return symbol(sym.PRINT, "print"); }
 
 
 {Identifier}		{ return symbol(sym.ID, yytext()); }

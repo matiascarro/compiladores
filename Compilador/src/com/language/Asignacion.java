@@ -5,60 +5,32 @@ public class Asignacion extends Comm {
 	Expr	e;
 	Var		nomVariable;
 	
-	
-	
-
-
 	public Asignacion(Expr e, Var nomVariable) {
 		super();
 		this.e = e;
 		this.nomVariable = nomVariable;
 	}
 
-
-	
-
-
 	public Asignacion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	
-
-
 	public Expr getE() {
 		return e;
 	}
-
-
-
-
 
 	public void setE(Expr e) {
 		this.e = e;
 	}
 
-
-
-
-
 	public Var getNomVariable() {
 		return nomVariable;
 	}
 
-
-
-
-
 	public void setNomVariable(Var nomVariable) {
 		this.nomVariable = nomVariable;
 	}
-
-
-
-
 
 	@Override
 	void evaluar(Contexto contexto) throws Exception {
@@ -68,7 +40,6 @@ public class Asignacion extends Comm {
 		Valor v = e.evaluar(contexto);
 		
 		contexto.actualizarOCrearVariable(v,nomVariable.getNombreVariable());
-		
 		
 	}
 

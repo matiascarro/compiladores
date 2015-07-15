@@ -24,13 +24,13 @@ terminal Boolean BOOLEAN;
 terminal String LONG;
 
 non terminal Expr expr;
+non terminal Expr exprlista;
 
 non terminal Comm comm;
 non terminal ListComm lcomm;
 non terminal Programa prog;
 
-non terminal EstructuraLista elista;
-non terminal EstructuraLista contlista;
+non terminal Estructurados elista;
 
 
 precedence left LPAREN, RPAREN;
@@ -66,17 +66,16 @@ comm	::=  ID:i EQUAL expr:e
 				RESULT = new Asignacion(e, v);
 			:}
 		
+		| ID:i EQUAL exprlista:el
+			{:
+				Var v = new Var(i);
+				RESULT = new AsignacionLista(el, v);
+			:}
+		
 		| PRINT expr:e
 			{:
 				RESULT = new Print(e);
-			:};
-			
-elista	::=  LPARENCUADRADO expr:e RPARENCUADRADO
-			{:
-				RESULT = new EstructuraLista(e);
-			:}
-		
-		;			
+			:};		
 			
 			
 expr	::= INT:i
@@ -108,7 +107,9 @@ expr	::= INT:i
 				Valor v = new Valor(0, null, 0,false,new Long( l), TipoValor.LONG);
 				RESULT = new Const(v);
 			:}
+			
 		| ID:i
+		
 			{:
 				RESULT = new Var(i);
 			:}
@@ -235,8 +236,42 @@ expr	::= INT:i
 		| expr:l MAYOR_IGUAL expr:r
 			{:
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.MAYOR_IGUAL);
+			:};
+			
+						
+//***************Listas, diccionarios, etc***********************************
+			
+exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
+			{:
+				RESULT = new Estructurados(e);
 			:}
 			
-			
+		| LPARENCUADRADO elista:e COMMA exprlista:el RPARENCUADRADO
+			{:
+				RESULT = new Estructurados(e, el);
+			:}
 		
 		;
+
+
+elista	::=  expr:e COMMA elista:el
+			{:
+				RESULT = new Estructurados(e, el);
+			:}
+		
+		| LPARENCUADRADO expr:e COMMA elista:el RPARENCUADRADO
+			{:
+				RESULT = new Estructurados(e, el);
+			:}
+		
+		| expr:e
+			{:
+				RESULT = new Estructurados(e);
+			:}
+			
+		| LPARENCUADRADO elista:e RPARENCUADRADO
+			{:
+				RESULT = new Estructurados(e);
+			:};	
+				
+			

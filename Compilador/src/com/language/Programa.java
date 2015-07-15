@@ -6,14 +6,10 @@ public class Programa {
 	Contexto			contexto;
 	
 	
-	
-	
 	public Programa() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	public Programa(ListComm sentencias) {
 		super();
@@ -21,25 +17,17 @@ public class Programa {
 		this.contexto = new Contexto();
 	}
 	
-	
-	
 	public ListComm getSentencias() {
 		return sentencias;
 	}
-
-
 
 	public void setSentencias(ListComm sentencias) {
 		this.sentencias = sentencias;
 	}
 
-
-
 	public Contexto getContexto() {
 		return contexto;
 	}
-
-
 
 	public void setContexto(Contexto contexto) {
 		this.contexto = contexto;
@@ -50,11 +38,6 @@ public class Programa {
 	}
 
 
-
-	public void agregarSentencia(Comm s) {
-		
-	}
-	
 	public void ejecutarPrograma()
 	{
 		
