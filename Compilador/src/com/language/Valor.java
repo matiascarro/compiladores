@@ -32,7 +32,37 @@ public class Valor  extends Expr{
 		return f;
 	}
 	
-	
+	public boolean esIgual (Valor vaux){
+		boolean resultado = false;
+		if (this.tipo == vaux.tipo){
+			if (this.tipo == TipoValor.BOOL){
+				if (this.b == vaux.b){
+					resultado = true;
+				}
+			}
+			if (this.tipo == TipoValor.FLOAT){
+				if (this.f == vaux.f){
+					resultado = true;
+				}
+			}
+			if (this.tipo == TipoValor.INT){
+				if (this.i == vaux.i){
+					resultado = true;
+				}
+			}
+			if (this.tipo == TipoValor.LONG){
+				if (this.l == vaux.l){
+					resultado = true;
+				}
+			}
+			if (this.tipo == TipoValor.STRING){
+				if (this.s.equals(vaux.s)){
+					resultado = true;
+				}
+			}
+		}
+		return resultado;
+	}
 
 	public void setF(float f) {
 		this.f = f;

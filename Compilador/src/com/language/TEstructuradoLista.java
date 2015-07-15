@@ -8,6 +8,11 @@ public class TEstructuradoLista extends Expr{
 	Expr e;
 	TEstructuradoLista siguiente;
 
+	
+	
+	public TEstructuradoLista() {
+		super();
+	}
 
 	public TEstructuradoLista(Expr e) {
 		super();
@@ -59,7 +64,10 @@ public class TEstructuradoLista extends Expr{
 		TEstructuradoLista t;
 		TEstructuradoLista aux;
 		Valor val;
+		Valor valaux;
+		boolean encontre;
 		int cant;
+		int cantaux;
 		
 		switch (nombreFuncion.getNombreVariable()) {
 		case "append":
@@ -79,6 +87,36 @@ public class TEstructuradoLista extends Expr{
 			break;
 			
 		case "count":
+			// solo implementado para tipos valor
+			
+			if (p1 instanceof Valor){
+			
+				aux = this;
+				
+				cant = 0;
+				
+				while (aux != null){
+					
+					if (aux.e instanceof Valor){
+						val = (Valor) aux.e;
+						
+						if (val.esIgual((Valor) p1)){
+							cant++;
+						}
+					}
+						
+					aux = aux.siguiente;
+					
+				}
+				
+				v = new Valor(0, "", cant, true, 0, TipoValor.INT);
+				
+			}
+			
+			break;
+			
+		case "extend":
+			//implementado para listas con elementos solo 
 			
 			aux = this;
 			
@@ -88,13 +126,84 @@ public class TEstructuradoLista extends Expr{
 				
 			}
 			
-			val = (Valor) aux.e;
 			
 			break;
-		case "extend":
 			
-			break;
 		case "index":
+			//solo para valores
+			
+			if (p1 instanceof Valor){
+				
+				// caso de dos parametros
+				if ((p2 != null)&&(p2 instanceof Valor)){
+					
+					valaux = (Valor) p2;
+					
+					if (valaux.getTipo() != TipoValor.INT){
+						throw new ExecutionException("Error de tipos en funcion index");
+					}
+					
+					cantaux = valaux.getI();
+					
+					aux = this;
+					
+					cant = 0;
+					
+					encontre = false;
+					
+					while ((aux != null)&&(!encontre)){
+							
+						cant++;
+						
+						if (aux.e instanceof Valor){
+							val = (Valor) aux.e;
+							
+							if ((val.esIgual((Valor) p1))&&(cant>=cantaux)){
+								encontre = true;
+							}
+						}
+							
+						aux = aux.siguiente;
+						
+					}
+					
+					if (encontre) {
+						v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
+					}
+				}
+				
+				// caso de 1 parametro
+				
+				if (p2 == null){
+				
+					aux = this;
+					
+					cant = 0;
+					
+					encontre = false;
+					
+					while ((aux != null)&&(!encontre)){
+						
+						cant++;
+						
+						if (aux.e instanceof Valor){
+							val = (Valor) aux.e;
+							
+							if (val.esIgual((Valor) p1)){
+								encontre = true;
+							}
+						}
+							
+						aux = aux.siguiente;
+						
+					}
+					
+					if (encontre) {
+						v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
+					}
+				}
+				
+			}
 			
 			break;
 		case "insert":
