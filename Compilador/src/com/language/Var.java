@@ -1,5 +1,6 @@
 package com.language;
 
+import com.language.exceptions.ExecutionException;
 import com.language.exceptions.ParsingException;
 
 public class Var extends Expr{
@@ -31,13 +32,18 @@ public class Var extends Expr{
 
 
 	@Override
-	Valor evaluar(Contexto contexto) throws ParsingException {
-		Valor v = contexto.buscarVariable(nombreVariable);
-		if(v==null){
+	Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException {
+		Expr ret = contexto.buscarVariable(nombreVariable);
+		if(ret==null){
 			throw new ParsingException("La variable "+ nombreVariable + " no existe en el scope");
 		}
+		if(!(ret instanceof Valor) ||  !(ret instanceof TEstructuradoLista)){
+			throw new ExecutionException("Error en evaluar");
+		}
 		
-		return v;
+		
+		
+		return ret;
 	}
 
 }

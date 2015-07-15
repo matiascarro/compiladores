@@ -639,11 +639,20 @@ public class OperacionBinaria extends Expr{
 	Valor evaluar(Contexto contexto) throws ParsingException, ExecutionException {
 		// TODO Auto-generated method stub
 		// Evaluo por ej 3 + 3  
+		Expr ep1, ep2;
 		Valor v1, v2;
 		
 		
-		v1 = e1.evaluar(contexto);
-		v2 = e2.evaluar(contexto);
+		ep1 = e1.evaluar(contexto);
+		ep2 = e2.evaluar(contexto);
+		
+		if(!(ep1 instanceof Valor) || !(ep2 instanceof Valor)){
+			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
+		}
+		
+		
+		v1 = (Valor)ep1;
+		v2 = (Valor)ep2;
 		
 		switch (op) {
 			

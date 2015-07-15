@@ -5,7 +5,7 @@ import com.language.exceptions.ParsingException;
 
 abstract public class Expr {
 
-	abstract Valor evaluar(Contexto contexto) throws ParsingException, ExecutionException;
+	abstract Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException;
 	
 	
 

@@ -3,10 +3,13 @@ package com.language;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.language.exceptions.ExecutionException;
+
 
 public class Contexto {
 	Map<String, Valor> variables;
-	Map<String, Estructurados> listas;
+	Map<String, TEstructuradoLista> listas;
+	Map<String,FuncionDef> funciones;
 	int ScopeGlobal;
 	
 	public Contexto() {
@@ -14,14 +17,20 @@ public class Contexto {
 		variables = new HashMap<String, Valor>();
 	}
 
+	
+	
 	public Contexto(Map<String, Valor> variables,
-			Map<String, Estructurados> listas, int scopeGlobal) {
+			Map<String, TEstructuradoLista> listas,
+			Map<String, FuncionDef> funciones, int scopeGlobal) {
 		super();
 		this.variables = variables;
 		this.listas = listas;
+		this.funciones = funciones;
 		ScopeGlobal = scopeGlobal;
 	}
-	
+
+
+
 	public Map<String, Valor> getVariables() {
 		return variables;
 	}
@@ -38,13 +47,25 @@ public class Contexto {
 		ScopeGlobal = scopeGlobal;
 	}
 	
-	public Map<String, Estructurados> getListas() {
+	public Map<String, TEstructuradoLista> getListas() {
 		return listas;
 	}
 
-	public void setListas(Map<String, Estructurados> listas) {
+	public void setListas(Map<String, TEstructuradoLista> listas) {
 		this.listas = listas;
 	}
+	
+
+	public Map<String, FuncionDef> getFunciones() {
+		return funciones;
+	}
+
+
+	public void setFunciones(Map<String, FuncionDef> funciones) {
+		this.funciones = funciones;
+	}
+
+
 
 	public String calcScopeVariable (String nomVariable){
 		return nomVariable + '-' + ScopeGlobal;
@@ -58,23 +79,45 @@ public class Contexto {
 		ScopeGlobal--;
 	}
 	
-	public void actualizarOCrearVariable(Valor v, String nomVariable){
-		//Si existe la variable tengo que setear tb el tipo
-		variables.put(this.calcScopeVariable(nomVariable),v);
+	public void actualizarOCrearVariable(Expr e, String nomVariable) throws ExecutionException{
+		
+		if(e instanceof Valor){
+			Valor v = (Valor)e;
+			variables.put(this.calcScopeVariable(nomVariable),v);
+			listas.remove(this.calcScopeVariable(nomVariable));
+		}
+		else if(e instanceof TEstructuradoLista)
+		{
+			TEstructuradoLista value = (TEstructuradoLista) e;
+			listas.put(this.calcScopeVariable(nomVariable), value);
+			variables.remove(this.calcScopeVariable(nomVariable));
+		}
+		
+		throw new ExecutionException("No se puede actualizar la variable");
+		
+		
 	}
 	
-	public Valor buscarVariable(String nombreVariable) {
+	public Expr buscarVariable(String nombreVariable) {
 		Valor ret = null;
+		TEstructuradoLista lista;
 		for (int i = this.getScopeGlobal(); i>=0; i--){
 			ret = variables.get(nombreVariable + "-" + i);
 			if (ret != null){
-				break;
-				
+				return ret;
+			}
+			lista = listas.get(nombreVariable + "-" + i);
+			if(lista != null){
+				return lista;
 			}
 		}
-		return ret;
+		return null;
 		
 		//esto cambia, tiene que buscar en todos los maps y quedarse con la variable con ese nombre con el scope mas grande
+	}
+	
+	public void guardarFuncion(String nombreFuncion, FuncionDef funcion) {
+		funciones.put(this.calcScopeVariable(nombreFuncion), funcion);
 	}
 	
 	public void imprimir (){

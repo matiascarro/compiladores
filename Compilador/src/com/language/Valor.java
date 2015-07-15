@@ -1,6 +1,9 @@
 package com.language;
 
-public class Valor {
+import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
+
+public class Valor  extends Expr{
 	private float f;
 	private String s;
 	private int i;
@@ -73,6 +76,13 @@ public class Valor {
 
 	public void setTipo(TipoValor tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override
+	Valor evaluar(Contexto contexto) throws ParsingException,
+			ExecutionException {
+		// TODO Auto-generated method stub
+		return this;
 	}
 	
 	
