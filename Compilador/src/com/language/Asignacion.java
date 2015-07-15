@@ -41,7 +41,7 @@ public class Asignacion extends Comm {
 		
 		Expr ep = e.evaluar(contexto);
 		
-		if(!(ep instanceof Valor) || !( ep instanceof TEstructuradoLista)){
+		if(!(ep instanceof Valor)) {
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		

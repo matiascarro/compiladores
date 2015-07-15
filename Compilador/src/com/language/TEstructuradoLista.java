@@ -36,6 +36,85 @@ public class TEstructuradoLista extends Expr{
 	public void setSiguiente(TEstructuradoLista siguiente) {
 		this.siguiente = siguiente;
 	}
+	
+	public Valor ejecutarFuncion(Var nombreFuncion, Expr p1, Expr p2) throws ExecutionException{
+		
+		Valor v = null; //new Valor(0, "", -1, true, 0, TipoValor.INT);
+		
+		if ((nombreFuncion.getNombreVariable() != "size") && (p1 == null)){
+			throw new ExecutionException("Parametro vacio en ejecutarFuncion");
+		}
+		if ((nombreFuncion.getNombreVariable() == "insert") && (p2 == null)){
+			throw new ExecutionException("Parametro vacio en ejecutarFuncion");
+		}
+		
+		if ((p1 != null) && (!(p1 instanceof Valor)||!(p1 instanceof TEstructuradoLista))){
+			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncion");
+		}
+		
+		if ((p2 != null) && (!(p2 instanceof Valor)||!(p2 instanceof TEstructuradoLista))){
+			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncion");
+		}
+		
+		TEstructuradoLista t;
+		TEstructuradoLista aux;
+		Valor val;
+		int cant;
+		
+		switch (nombreFuncion.getNombreVariable()) {
+		case "append":
+			
+			t = new TEstructuradoLista(p1, null);
+			
+			aux = this;
+			
+			while (aux.getSiguiente() != null){
+				
+				aux = aux.siguiente;
+				
+			}
+			
+			aux.siguiente = t;
+				
+			break;
+			
+		case "count":
+			
+			aux = this;
+			
+			while (aux.getSiguiente() != null){
+				
+				aux = aux.siguiente;
+				
+			}
+			
+			val = (Valor) aux.e;
+			
+			break;
+		case "extend":
+			
+			break;
+		case "index":
+			
+			break;
+		case "insert":
+			
+			break;
+		case "pop":
+			
+			break;
+		case "size":
+			
+			break;
+
+		default:
+			break;
+			
+		}
+		
+		return v;
+		
+	}
 
 	@Override
 	TEstructuradoLista evaluar(Contexto contexto) throws ParsingException,

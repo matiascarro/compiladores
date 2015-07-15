@@ -30,7 +30,7 @@ non terminal Comm comm;
 non terminal ListComm lcomm;
 non terminal Programa prog;
 
-non terminal Estructurados elista;
+non terminal TEstructuradoLista elista;
 
 
 precedence left LPAREN, RPAREN;
@@ -243,12 +243,12 @@ expr	::= INT:i
 			
 exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
 			{:
-				RESULT = new Estructurados(e);
+				RESULT = new TEstructuradoLista(e);
 			:}
 			
 		| LPARENCUADRADO elista:e COMMA exprlista:el RPARENCUADRADO
 			{:
-				RESULT = new Estructurados(e, el);
+				RESULT = new TEstructuradoLista(e, el);
 			:}
 		
 		;
@@ -256,22 +256,22 @@ exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
 
 elista	::=  expr:e COMMA elista:el
 			{:
-				RESULT = new Estructurados(e, el);
+				RESULT = new TEstructuradoLista(e, el);
 			:}
 		
 		| LPARENCUADRADO expr:e COMMA elista:el RPARENCUADRADO
 			{:
-				RESULT = new Estructurados(e, el);
+				RESULT = new TEstructuradoLista(e, el);
 			:}
 		
 		| expr:e
 			{:
-				RESULT = new Estructurados(e);
+				RESULT = new TEstructuradoLista(e);
 			:}
 			
 		| LPARENCUADRADO elista:e RPARENCUADRADO
 			{:
-				RESULT = new Estructurados(e);
+				RESULT = new TEstructuradoLista(e);
 			:};	
 				
 			
