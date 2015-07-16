@@ -1,6 +1,7 @@
 package com.language;
 
 import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
 
 public class AsignacionLista extends Comm{
 
@@ -17,7 +18,8 @@ public class AsignacionLista extends Comm{
 
 
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
+		// TODO Auto-generated method stub
 		
 		Expr e = tel.evaluar(contexto);
 		

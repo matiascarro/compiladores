@@ -1,6 +1,6 @@
 package com.language;
 
-public class ListaExpr {
+public class ListaExpr extends Expr {
 
 	Expr		expresion;
 	ListaExpr	siguiente;

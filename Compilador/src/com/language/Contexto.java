@@ -1,6 +1,7 @@
 package com.language;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import com.language.exceptions.ExecutionException;
@@ -157,13 +158,52 @@ public class Contexto {
 	}
 	
 	public void guardarFuncion(String nombreFuncion, FuncionDef funcion) {
-		funciones.put(this.calcScopeVariable(nombreFuncion), funcion);
+		funciones.put(nombreFuncion, funcion);
+	}
+	
+	public FuncionDef buscarFuncion(String nombreFuncion){
+		return funciones.get(nombreFuncion);
 	}
 	
 	public void imprimir (){
 		String s;
 		s = variables.toString();
 		System.out.println(s);
+	}
+	
+	public void eliminarVariablesDeScope(){
+		LinkedList<String> keysAborrar = new LinkedList<String>();
+		for (String keys : variables.keySet()) {
+			if(keys.endsWith("-"+ScopeGlobal)){
+				keysAborrar.add(keys);
+			}
+		} 
+		
+		for (String string : keysAborrar) {
+			variables.remove(string);
+		}
+		
+		keysAborrar = new LinkedList<String>();
+		for (String keys : listas.keySet()) {
+			if(keys.endsWith("-"+ScopeGlobal)){
+				keysAborrar.add(keys);
+			}
+		} 
+		
+		for (String string : keysAborrar) {
+			listas.remove(string);
+		}
+		
+		keysAborrar = new LinkedList<String>();
+		for (String keys : diccionarios.keySet()) {
+			if(keys.endsWith("-"+ScopeGlobal)){
+				keysAborrar.add(keys);
+			}
+		} 
+		
+		for (String string : keysAborrar) {
+			diccionarios.remove(string);
+		}
 	}
 	
 }

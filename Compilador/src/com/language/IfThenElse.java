@@ -3,6 +3,7 @@ package com.language;
 import java.util.Iterator;
 
 import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
 
 public class IfThenElse extends Comm{
 	
@@ -17,7 +18,7 @@ public class IfThenElse extends Comm{
 	}
 	
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
 		Valor v = op.evaluar(contexto);
@@ -55,7 +56,7 @@ public class IfThenElse extends Comm{
 			}
 			
 		} else {
-			throw new ExecutionException("Tipo inválido - Sentencia if else");
+			throw new ExecutionException("Tipo invï¿½lido - Sentencia if else");
 		}
 		
 	}

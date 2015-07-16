@@ -6,7 +6,7 @@ import com.language.exceptions.ParsingException;
 public class FuncionDef extends Comm {
 	
 	Var				nombreFuncion;
-	Parametros		parametros;
+	ListaVar		parametros;
 	ListComm		sentencias;
 	
 	public FuncionDef() {
@@ -15,7 +15,7 @@ public class FuncionDef extends Comm {
 	
 	
 
-	public FuncionDef(Var nombreFuncion, Parametros parametros, ListComm sentencias) {
+	public FuncionDef(Var nombreFuncion, ListaVar parametros, ListComm sentencias) {
 		super();
 		this.nombreFuncion = nombreFuncion;
 		this.parametros = parametros;
@@ -38,13 +38,13 @@ public class FuncionDef extends Comm {
 
 
 
-	public Parametros getParametros() {
+	public ListaVar getParametros() {
 		return parametros;
 	}
 
 
 
-	public void setParametros(Parametros parametros) {
+	public void setParametros(ListaVar parametros) {
 		this.parametros = parametros;
 	}
 
