@@ -38,9 +38,13 @@ public class Programa {
 	}
 
 
-	public void ejecutarPrograma()
+	public void ejecutarPrograma() throws Exception
 	{
-		
+		ListComm l = sentencias;
+		while (l!=null){
+			l.getSentencia().evaluar(contexto);
+			l = l.getSiguiente();
+		}
 	}
 	
 	

@@ -13,6 +13,13 @@ public class Tester {
 		
 		Programa prog = ProgramaParser.parse(exptext);
 		
+		try {
+			prog.ejecutarPrograma();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("Expresion obtenida: ");
 		
 		prog.imprimirContexto();
