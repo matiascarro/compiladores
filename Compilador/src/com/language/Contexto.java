@@ -9,25 +9,39 @@ import com.language.exceptions.ExecutionException;
 public class Contexto {
 	Map<String, Valor> variables;
 	Map<String, TEstructuradoLista> listas;
+	Map<String, TEstructuradoDiccionario> diccionarios;
 	Map<String,FuncionDef> funciones;
 	int ScopeGlobal;
 	
 	public Contexto() {
 		super();
-		variables = new HashMap<String, Valor>();
+		variables 		= new HashMap<String, Valor>();
+		listas 			= new HashMap<String, TEstructuradoLista>();
+		diccionarios	= new HashMap<String, TEstructuradoDiccionario>();
+		funciones 		= new HashMap<String, FuncionDef>();
 	}
 
 	
 	
+	
+
+
+
 	public Contexto(Map<String, Valor> variables,
 			Map<String, TEstructuradoLista> listas,
+			Map<String, TEstructuradoDiccionario> diccionario,
 			Map<String, FuncionDef> funciones, int scopeGlobal) {
 		super();
 		this.variables = variables;
 		this.listas = listas;
+		this.diccionarios = diccionario;
 		this.funciones = funciones;
 		ScopeGlobal = scopeGlobal;
 	}
+
+
+
+
 
 
 
@@ -65,6 +79,17 @@ public class Contexto {
 		this.funciones = funciones;
 	}
 
+	
+
+	public Map<String, TEstructuradoDiccionario> getDiccionarios() {
+		return diccionarios;
+	}
+
+
+
+	public void setDiccionarios(Map<String, TEstructuradoDiccionario> diccionarios) {
+		this.diccionarios = diccionarios;
+	}
 
 
 	public String calcScopeVariable (String nomVariable){
@@ -85,12 +110,21 @@ public class Contexto {
 			Valor v = (Valor)e;
 			variables.put(this.calcScopeVariable(nomVariable),v);
 			listas.remove(this.calcScopeVariable(nomVariable));
+			diccionarios.remove(this.calcScopeVariable(nomVariable));
 		}
 		else if(e instanceof TEstructuradoLista)
 		{
 			TEstructuradoLista value = (TEstructuradoLista) e;
 			listas.put(this.calcScopeVariable(nomVariable), value);
 			variables.remove(this.calcScopeVariable(nomVariable));
+			diccionarios.remove(this.calcScopeVariable(nomVariable));
+		}
+		else if(e instanceof TEstructuradoDiccionario)
+		{
+			TEstructuradoDiccionario value = (TEstructuradoDiccionario) e;
+			diccionarios.put(this.calcScopeVariable(nomVariable), value);
+			variables.remove(this.calcScopeVariable(nomVariable));
+			listas.remove(this.calcScopeVariable(nomVariable));
 		}
 		
 		throw new ExecutionException("No se puede actualizar la variable");
@@ -101,6 +135,7 @@ public class Contexto {
 	public Expr buscarVariable(String nombreVariable) {
 		Valor ret = null;
 		TEstructuradoLista lista;
+		TEstructuradoDiccionario dic;
 		for (int i = this.getScopeGlobal(); i>=0; i--){
 			ret = variables.get(nombreVariable + "-" + i);
 			if (ret != null){
@@ -110,6 +145,11 @@ public class Contexto {
 			if(lista != null){
 				return lista;
 			}
+			dic = diccionarios.get(nombreVariable + "-" + i);
+			if(dic != null){
+				return dic;
+			}
+			
 		}
 		return null;
 		

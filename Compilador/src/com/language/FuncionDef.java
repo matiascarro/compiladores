@@ -67,7 +67,7 @@ public class FuncionDef extends Comm {
 			ExecutionException {
 		// TODO Auto-generated method stub
 		//Guarda la funcion en una lista de funciones
-		
+		contexto.guardarFuncion(nombreFuncion.getNombreVariable(),this);
 	}
 
 }

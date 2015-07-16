@@ -18,7 +18,6 @@ public class AsignacionLista extends Comm{
 
 	@Override
 	void evaluar(Contexto contexto) throws Exception {
-		// TODO Auto-generated method stub
 		
 		Expr e = tel.evaluar(contexto);
 		
