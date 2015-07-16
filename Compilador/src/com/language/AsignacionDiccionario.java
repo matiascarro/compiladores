@@ -1,6 +1,7 @@
 package com.language;
 
 import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
 
 
 public class AsignacionDiccionario extends Comm {
@@ -49,7 +50,7 @@ public class AsignacionDiccionario extends Comm {
 
 
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		
 		Expr e = diccionario.evaluar(contexto);
 		

@@ -20,7 +20,7 @@ public class OperacionesPredefinidas extends Comm{
 
 
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto)  {
 		// TODO Auto-generated method stub
 		// si variable no es lista o diccionario o string entonces error
 		// hay que encontrar la variable en el contexto y que no sea null

@@ -13,7 +13,7 @@ public class FuncionEjecutar extends Expr {
 	}
 
 	@Override
-	Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException {
+	ListaExpr evaluar(Contexto contexto) throws ExecutionException {
 		// TODO Auto-generated method stub
 		//buscar la funcion en el contexto
 		//Chequear que la cantidad de parametros y variables sea la misma
@@ -23,7 +23,41 @@ public class FuncionEjecutar extends Expr {
 		//
 		//sumar uno a scopeglobal
 		//Pedir la lista de comm a la definición de ejecucion y ejecutar. Hay que tener cuidado con las llamadas return y break;
+		
+		FuncionDef func = contexto.buscarFuncion(nombreFuncion.getNombreVariable());
+		if(func == null){
+			throw new ExecutionException("No existe la funcion");
+		}
+		if(parametros.cantidadElementos() != func.getParametros().cantidadElementos()){
+			throw new ExecutionException("Llamado con numero incorrecto de parametros");
+		}
+		contexto.aumentarScope();
+		ListaExpr auxL = parametros;
+		ListaVar variables = func.getParametros();
+		
+		while (auxL!=null){
+			contexto.actualizarOCrearVariable(auxL, variables.getVariable().getNombreVariable());
+		}
+		ListComm lista = func.getSentencias();
+		
+		while((lista != null) && !(lista.getSentencia() instanceof FuncionReturn)){
+			lista.getSentencia().evaluar(contexto);
+			lista = lista.getSiguiente();
+		}
+		
+		if(lista != null){
+			if(lista.getSentencia() instanceof FuncionReturn){
+				lista.getSentencia().evaluar(contexto);
+				FuncionReturn f = (FuncionReturn)lista.getSentencia();
+				contexto.eliminarVariablesDeScope();
+				contexto.disminuirScope();
+				return f.getRetorno();
+			}
+		}
+		contexto.eliminarVariablesDeScope();
+		contexto.disminuirScope();
 		return null;
+		
 	}
 
 }

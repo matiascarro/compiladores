@@ -1,6 +1,9 @@
 package com.language;
 
-public class ListaExpr {
+import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
+
+public class ListaExpr extends Expr {
 
 	Expr		expresion;
 	ListaExpr	siguiente;
@@ -46,6 +49,20 @@ public class ListaExpr {
 			aux = aux.siguiente;
 		}
 		return ret;
+	}
+
+
+	@Override
+	Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException {
+
+		ListaExpr aux = this;
+		while(aux!=null){
+			
+			aux.expresion = aux.expresion.evaluar(contexto);
+			aux = aux.siguiente;
+		}
+		
+		return this;
 	}
 
 }

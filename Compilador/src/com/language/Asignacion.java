@@ -1,6 +1,7 @@
 package com.language;
 
 import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
 
 public class Asignacion extends Comm {
 
@@ -35,7 +36,7 @@ public class Asignacion extends Comm {
 	}
 
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Buscar la variable a la cual queremos asignar el valor
 		//d = 8 //Asignacion(Const(8))
 		

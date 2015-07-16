@@ -1,6 +1,7 @@
 package com.language;
 
 import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
 
 public class Print extends Comm{
 	
@@ -15,7 +16,7 @@ public class Print extends Comm{
 	
 	
 	@Override
-	void evaluar(Contexto contexto) throws Exception {
+	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
 		Expr ep;
