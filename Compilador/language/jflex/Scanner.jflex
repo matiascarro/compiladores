@@ -48,6 +48,7 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 "+" 				{ return symbol(sym.SUMA, "+"); }
 "-" 				{ return symbol(sym.RESTA, "-"); }
 
+"*" 				{ return symbol(sym.MULTIPLICACION, "*"); }
 "/" 				{ return symbol(sym.DIVISION, "/"); }
 "=" 				{ return symbol(sym.EQUAL, "="); }
 
@@ -67,7 +68,7 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 "and" 				{ return symbol(sym.AND, "and"); }
 "or" 				{ return symbol(sym.OR, "or"); }
-"not" 				{ return symbol(sym.NEGACION, "not"); }
+"not" 				{ return symbol(sym.NOT, "not"); }
 
 "==" 				{ return symbol(sym.IGUAL, "=="); }
 "!=" 				{ return symbol(sym.DISTINTO, "!="); }

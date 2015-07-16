@@ -8,7 +8,7 @@ import com.language.exceptions.*;
 
 terminal SUMA, RESTA, DIVISION, MULTIPLICACION, EXPONENTE, DIVISION_ENTERA, MODULO;
 terminal SHIFT_IZQ, SHIFT_DER, COMPLEMENTO, BAND, BOR, BXOR;
-terminal AND, OR, DISTINTO, IGUAL, MAYOR, MENOR, MENOR_IGUAL, MAYOR_IGUAL, NEGACION; 
+terminal AND, OR, DISTINTO, IGUAL, MAYOR, MENOR, MENOR_IGUAL, MAYOR_IGUAL, NOT; 
 terminal EQUAL;
 terminal SEPARADOR;
 terminal END;
@@ -37,7 +37,7 @@ precedence left LPAREN, RPAREN;
 precedence left SUMA, RESTA;
 precedence left DIVISION, MULTIPLICACION,DIVISION_ENTERA, MODULO,BAND, BOR, BXOR, SHIFT_IZQ, SHIFT_DER;
 precedence left AND, OR, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
-precedence left EXPONENTE, COMPLEMENTO, NEGACION;
+precedence left EXPONENTE, COMPLEMENTO, NOT;
 
 //habria que crear el programa y setear la lista de las sentencias
 prog	::=	lcomm:l END
@@ -126,6 +126,12 @@ expr	::= INT:i
 			{:
 				RESULT = new OperacionBinaria(l,r,TipoOperadorBinario.RESTA);
 			:}
+		
+		| RESTA expr:r
+			{:
+				Valor v = new Valor(0, null, 0,false,0, TipoValor.INT);
+				RESULT = new OperacionBinaria(v,r,TipoOperadorBinario.RESTA);
+			:}
 
 		| expr:l DIVISION expr:r
 			{:
@@ -192,7 +198,7 @@ expr	::= INT:i
 			:}   
 		
 //***************Operaciones booleanas***********************************
-//AND, OR, NEGACION, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL		
+//AND, OR, NOT, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL		
 		| expr:l AND expr:r
 			{:
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.AND);
@@ -218,9 +224,9 @@ expr	::= INT:i
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.MENOR);
 			:} 
 		
-		| NEGACION expr:l
+		| NOT expr:l
 			{:
-				RESULT = new OperacionBooleana(l,null,TipoOperadorBooleano.NEGACION);
+				RESULT = new OperacionBooleana(l,null,TipoOperadorBooleano.NOT);
 			:}
 			
 		| expr:l MAYOR expr:r
