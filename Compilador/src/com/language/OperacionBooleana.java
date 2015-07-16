@@ -99,47 +99,54 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() != v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() != v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() != v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() != v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() != v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() != v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() != v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() != v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() != v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() != v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() != v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() != v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
 	
 	//******************************************************************************************************
@@ -183,48 +190,56 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() == v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() == v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() == v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() == v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+							
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() == v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() == v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
+			
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() == v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() == v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() == v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() == v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() == v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() == v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	//******************************************************************************************************
 	//******************************************************************************************************
@@ -267,48 +282,56 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() > v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() > v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+					
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() > v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() > v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() > v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() > v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
+				
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() > v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() > v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() > v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() > v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() > v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() > v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 
 
 	//******************************************************************************************************
@@ -352,48 +375,56 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() >= v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() >= v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() >= v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() >= v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() >= v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() >= v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() >= v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() >= v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() >= v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() >= v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() >= v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() >= v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 
 	//******************************************************************************************************
 	//******************************************************************************************************
@@ -436,48 +467,55 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() < v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() < v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() < v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() < v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() < v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() < v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() < v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() < v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() < v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() < v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() < v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() < v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
+								
 
 
 	//******************************************************************************************************
@@ -521,68 +559,83 @@ public class OperacionBooleana extends Expr{
 				throw new ParsingException("No soporta operacion para los tipos  " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setB(v1.getF() <= v2.getI());
+				ret.setTipo(TipoValor.BOOL);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setB(v1.getI() <= v2.getF());
+					ret.setTipo(TipoValor.BOOL);
+					return ret;
+				} else {
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setB(v1.getL() <= v2.getI());
+						ret.setTipo(TipoValor.BOOL);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setB(v1.getI() <= v2.getL());
+							ret.setTipo(TipoValor.BOOL);
+							return ret;	
+						} else {
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setB(v1.getF() <= v2.getL());
+								ret.setTipo(TipoValor.BOOL);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setB(v1.getL() <= v2.getF());
+									ret.setTipo(TipoValor.BOOL);
+									return ret;	
+								} else {
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getF() <= v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() <= v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getL() <= v2.getI());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setB(v1.getI() <= v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getF() <= v2.getL());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setB(v1.getL() <= v2.getF());
-			ret.setTipo(TipoValor.BOOL);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	
 	@Override
 	Valor evaluar(Contexto contexto) throws ParsingException,
 			ExecutionException {
 		
-		Expr ep1, ep2;
-		Valor v1, v2;
+		Expr ep1, ep2 = null;
+		Valor v1, v2 = null;
 		
 		
 		ep1 = e1.evaluar(contexto);
-		ep2 = e2.evaluar(contexto);
+		if (e2 != null){
+			ep2 = e2.evaluar(contexto);
+			
+			if(!(ep2 instanceof Valor)){
+				throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
+			}
+		}
 		
-		if(!(ep1 instanceof Valor) || !(ep2 instanceof Valor)){
+		if(!(ep1 instanceof Valor)){
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		
-		
 		v1 = (Valor)ep1;
-		v2 = (Valor)ep2;
+		
+		if (e2 != null){
+			
+			v2 = (Valor)ep2;
+				
+		}
 		
 		/*if(v1.getTipo() == TipoValor.BOOL ||  v2.getTipo() == TipoValor.BOOL){
 				
@@ -593,18 +646,22 @@ public class OperacionBooleana extends Expr{
 		case AND:
 			if(v1.getTipo() == TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL){
 				return new Valor(0, null, 0, v1.isB() && v2.isB(), 0, TipoValor.BOOL);
-			}
+			} 
 			throw new ExecutionException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+			
+			
 		case OR:
 			if(v1.getTipo() == TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL){
 				return new Valor(0, null, 0, v1.isB() || v2.isB(), 0, TipoValor.BOOL);
-			}
+			}	
 			throw new ExecutionException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+			
 		case NOT:
-			if(v1.getTipo() == TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL){
+			if(v1.getTipo() == TipoValor.BOOL){
 				return new Valor(0, null, 0, !v1.isB(), 0, TipoValor.BOOL);
 			}
-			throw new ExecutionException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+			throw new ExecutionException("Errores de tipo, no soporta " + v1.getTipo().toString() + " en la operacion");
+			
 		case DISTINTO:
 			return this.calcularOperacionDistinto(v1, v2);
 		case IGUAL:

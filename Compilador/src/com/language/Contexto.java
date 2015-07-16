@@ -110,7 +110,11 @@ public class Contexto {
 		if(e instanceof Valor){
 			Valor v = (Valor)e;
 			variables.put(this.calcScopeVariable(nomVariable),v);
-			System.out.println("Entre"+v.getTipo().toString()+v.getI());
+			System.out.println("Entre"+v.getTipo().toString()+v.getI()+ " - int");
+			System.out.println("Entre"+v.getTipo().toString()+v.getF()+ " - float") ;
+			System.out.println("Entre"+v.getTipo().toString()+v.getL()+ " - long");
+			System.out.println("Entre"+v.getTipo().toString()+v.getS()+ " - string");
+			System.out.println("Entre"+v.getTipo().toString()+v.isB()+ " - boolean");
 			listas.remove(this.calcScopeVariable(nomVariable));
 			diccionarios.remove(this.calcScopeVariable(nomVariable));
 		}

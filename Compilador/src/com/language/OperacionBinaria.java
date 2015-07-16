@@ -91,48 +91,56 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getF() + v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() + v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(v1.getF() + v2.getI());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(v1.getI() + v2.getF());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setL(v1.getL() + v2.getI());
+						ret.setTipo(TipoValor.LONG);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setL(v1.getI() + v2.getL());
+							ret.setTipo(TipoValor.LONG);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(v1.getF() + v2.getL());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(v1.getL() + v2.getF());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getL() + v2.getI());
-			ret.setTipo(TipoValor.LONG);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getI() + v2.getL());
-			ret.setTipo(TipoValor.LONG);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getF() + v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getL() + v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	private Valor calcularTipoOperadorMatematicoResta(Valor v1, Valor v2) throws ExecutionException, ParsingException{
 		
@@ -160,48 +168,56 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getF() - v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() - v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(v1.getF() - v2.getI());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(v1.getI() - v2.getF());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setL(v1.getL() - v2.getI());
+						ret.setTipo(TipoValor.LONG);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setL(v1.getI() - v2.getL());
+							ret.setTipo(TipoValor.LONG);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(v1.getF() - v2.getL());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(v1.getL() - v2.getF());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getL() - v2.getI());
-			ret.setTipo(TipoValor.LONG);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getI() - v2.getL());
-			ret.setTipo(TipoValor.LONG);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getF() - v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getL() - v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	
 	private Valor calcularTipoOperadorMatematicoDivision(Valor v1, Valor v2) throws ExecutionException, ParsingException{
@@ -253,48 +269,56 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getF() / v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() / v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(v1.getF() / v2.getI());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(v1.getI() / v2.getF());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setF(v1.getL() / v2.getI());
+						ret.setTipo(TipoValor.FLOAT);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setF(v1.getI() / v2.getL());
+							ret.setTipo(TipoValor.FLOAT);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(v1.getF() / v2.getL());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(v1.getL() / v2.getF());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getL() / v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() / v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getF() / v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getL() / v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	
 	private Valor calcularTipoOperadorMatematicoDivisionEntera(Valor v1, Valor v2) throws ExecutionException, ParsingException{
@@ -347,48 +371,56 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setI(new Float(v1.getF() / v2.getI()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setI(new Float(v1.getI() / v2.getF()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setI(new Float(v1.getF() / v2.getI()).intValue());
+				ret.setTipo(TipoValor.INT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setI(new Float(v1.getI() / v2.getF()).intValue());
+					ret.setTipo(TipoValor.INT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setI(new Float(v1.getL() / v2.getI()).intValue());
+						ret.setTipo(TipoValor.INT);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setI(new Float(v1.getI() / v2.getL()).intValue());
+							ret.setTipo(TipoValor.INT);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setI(new Float(v1.getF() / v2.getL()).intValue());
+								ret.setTipo(TipoValor.INT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setI(new Float(v1.getL() / v2.getF()).intValue());
+									ret.setTipo(TipoValor.INT);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setI(new Float(v1.getL() / v2.getI()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setI(new Float(v1.getI() / v2.getL()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setI(new Float(v1.getF() / v2.getL()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setI(new Float(v1.getL() / v2.getF()).intValue());
-			ret.setTipo(TipoValor.INT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	private Valor calcularTipoOperadorMatematicoExponente(Valor v1, Valor v2) throws ExecutionException, ParsingException{
 		
@@ -416,51 +448,59 @@ public class OperacionBinaria extends Expr{
 			default:
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
-		}
+		} else {
+		
+			
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(new Double(Math.pow(v1.getF(),v2.getI())).floatValue());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(new Double(Math.pow(v1.getI(),v2.getF())).floatValue());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setF(new Double(Math.pow(v1.getL(),v2.getI())).floatValue());
+						ret.setTipo(TipoValor.FLOAT);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setF(new Double(Math.pow(v1.getI(),v2.getL())).floatValue());
+							ret.setTipo(TipoValor.FLOAT);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(new Double(Math.pow(v1.getF(),v2.getL())).floatValue());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(new Double(Math.pow(v1.getL(),v2.getF())).floatValue());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
 		
 		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getF(),v2.getI())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getI(),v2.getF())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getL(),v2.getI())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getI(),v2.getL())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getF(),v2.getL())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(new Double(Math.pow(v1.getL(),v2.getF())).floatValue());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	///*****************************************************************************************
 	///*************************-----------*****************************************************
@@ -516,48 +556,56 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(v1.getF() + v2.getI());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(v1.getI() + v2.getF());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+				
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setL(v1.getL() + v2.getI());
+						ret.setTipo(TipoValor.LONG);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setL(v1.getI() + v2.getL());
+							ret.setTipo(TipoValor.LONG);
+							return ret;	
+						} else {
+						
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(v1.getF() + v2.getL());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(v1.getL() + v2.getF());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
+							
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getF() + v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() + v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getL() + v2.getI());
-			ret.setTipo(TipoValor.LONG);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getI() + v2.getL());
-			ret.setTipo(TipoValor.LONG);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getF() + v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getL() + v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
+	
 	
 	///*****************************************************************************************
 	///*************************--------------------********************************************

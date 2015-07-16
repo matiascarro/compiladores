@@ -250,7 +250,7 @@ public class OperacionBitwise extends Expr {
 			return new Valor(0, null, ~v1.getI(),false, 0, TipoValor.INT);
 			
 		case LONG:
-			return new Valor(0, null, 0,false, ~v1.getL(), TipoValor.INT);
+			return new Valor(0, null, 0,false, ~v1.getL(), TipoValor.LONG);
 			
 		default:
 			throw new ExecutionException("Tipo"+ v1.getTipo() +" no soportado");
@@ -261,30 +261,40 @@ public class OperacionBitwise extends Expr {
 	Valor evaluar(Contexto contexto) throws ParsingException,
 			ExecutionException {
 		
-		Expr ep1, ep2;
-		Valor v1, v2;
+		Expr ep1, ep2 = null;
+		Valor v1, v2 = null;
 		
 		
 		ep1 = e1.evaluar(contexto);
-		ep2 = e2.evaluar(contexto);
+		if (e2 != null){
+			ep2 = e2.evaluar(contexto);	
+
+			if(!(ep2 instanceof Valor)){
+				throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
+			}
+		}
 		
-		if(!(ep1 instanceof Valor) || !(ep2 instanceof Valor)){
+		if(!(ep1 instanceof Valor)){
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		
 		
 		v1 = (Valor)ep1;
-		v2 = (Valor)ep2;
-		
-		if(v1.getTipo() == TipoValor.FLOAT ||  v2.getTipo() == TipoValor.FLOAT
-				|| v1.getTipo() == TipoValor.STRING ||  v2.getTipo() == TipoValor.STRING){
-			throw new ParsingException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+		if (e2 != null){
+			v2 = (Valor)ep2;	
+			
+			if(v1.getTipo() == TipoValor.FLOAT ||  v2.getTipo() == TipoValor.FLOAT
+					|| v1.getTipo() == TipoValor.STRING ||  v2.getTipo() == TipoValor.STRING){
+				throw new ParsingException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+			}
+			
+			if((v1.getTipo() == TipoValor.BOOL && v2.getTipo() != TipoValor.BOOL) ||
+					(v1.getTipo() != TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL)){
+				throw new ParsingException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
+			}
 		}
 		
-		if((v1.getTipo() == TipoValor.BOOL && v2.getTipo() != TipoValor.BOOL) ||
-				(v1.getTipo() != TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL)){
-			throw new ParsingException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
-		}
+		
 		
 		
 			
@@ -306,7 +316,7 @@ public class OperacionBitwise extends Expr {
 			return this.calcularOperacionXor(v1, v2);
 			
 		case COMPLEMENTO:
-			this.calcularOperacionComplemento(v1);
+			return this.calcularOperacionComplemento(v1);
 
 		default:
 			throw new ExecutionException("Operación " + op.toString() + " no soportada" );
