@@ -61,8 +61,9 @@ public class TEstructuradoLista extends Expr{
 			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncion");
 		}
 		
-		TEstructuradoLista t;
-		TEstructuradoLista aux;
+		TEstructuradoLista t = null;
+		TEstructuradoLista aux = null;
+		TEstructuradoLista nueva = null;
 		Valor val;
 		Valor valaux;
 		boolean encontre;
@@ -116,13 +117,37 @@ public class TEstructuradoLista extends Expr{
 			break;
 			
 		case "extend":
-			//implementado para listas con elementos solo 
+			//implementado para listas con elementos solo tipo valor
 			
+			if (p1 instanceof TEstructuradoLista)
+				
 			aux = this;
 			
 			while (aux.getSiguiente() != null){
 				
 				aux = aux.siguiente;
+				
+			}
+			
+			t = (TEstructuradoLista) p1;
+			
+			while (t != null) {
+				
+				if (!(t.getE() instanceof Valor)){
+					throw new ExecutionException("Error en funcion extend");
+				}
+				
+				valaux = (Valor) t.getE();
+				
+				val = new Valor(valaux.getF(), valaux.getS(), valaux.getI(), valaux.isB(), valaux.getL(), valaux.getTipo());
+				
+				nueva = new TEstructuradoLista(val);
+
+				aux.siguiente = nueva;
+				
+				aux = aux.siguiente;
+				
+				t = t.siguiente;
 				
 			}
 			
@@ -207,12 +232,86 @@ public class TEstructuradoLista extends Expr{
 			
 			break;
 		case "insert":
+			//solo para valores
+			
+			if ((p1 instanceof Valor)&&(p2 instanceof Valor)){
+				
+				aux = this;
+				
+				val = (Valor) p1;
+				
+				valaux = (Valor) p2;
+				
+				if (valaux.getTipo() != TipoValor.INT){
+					throw new ExecutionException("Error en funcion insert con el parametro 2");
+				}
+				
+				cant = 1;
+				
+				while (valaux.getI()!= cant){
+						
+					cant++;
+							
+					aux = aux.siguiente;
+					
+				}
+				
+				t = new TEstructuradoLista(nueva, aux);
+				
+				aux = t;
+				
+			}
 			
 			break;
 		case "pop":
 			
+			if (p1 instanceof Valor){
+				
+				aux = this;
+				
+				val = (Valor) p1;
+				
+				if (val.getTipo() != TipoValor.INT){
+					throw new ExecutionException("Error en funcion insert con el parametro 2");
+				}
+				
+				cant = 1;
+				
+				if (val.getI() == 1){
+					
+					e = siguiente.getE();
+					siguiente = siguiente.getSiguiente();
+							
+				}else{
+				
+					while (val.getI()!= (cant-1)){
+							
+						cant++;
+								
+						aux = aux.siguiente;
+						
+					}
+					
+					aux.siguiente = siguiente.getSiguiente();
+				}
+			}
+			
 			break;
 		case "size":
+				
+				aux = this;
+				
+				cant = 0;
+				
+				while (aux != null){
+						
+					cant++;
+							
+					aux = aux.siguiente;
+					
+				}
+				
+				v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
 			
 			break;
 
