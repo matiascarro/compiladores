@@ -53,7 +53,7 @@ lcomm		::= lcomm:l SEPARADOR comm:c
 					RESULT = new ListComm(c, l);
 				:}
 		
-		| comm: c SEPARADOR
+		| comm:c SEPARADOR
 				{:
 					
 					RESULT = new ListComm(c);
@@ -69,7 +69,7 @@ comm	::=  ID:i EQUAL expr:e
 		| ID:i EQUAL exprlista:el
 			{:
 				Var v = new Var(i);
-				RESULT = new AsignacionLista(el, v);
+				RESULT = new AsignacionLista(v, el);
 			:}
 		
 		| PRINT expr:e
@@ -245,11 +245,6 @@ exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
 			{:
 				RESULT = new TEstructuradoLista(e);
 			:}
-			
-		| LPARENCUADRADO elista:e COMMA exprlista:el RPARENCUADRADO
-			{:
-				RESULT = new TEstructuradoLista(e, el);
-			:}
 		
 		;
 
@@ -259,19 +254,15 @@ elista	::=  expr:e COMMA elista:el
 				RESULT = new TEstructuradoLista(e, el);
 			:}
 		
-		| LPARENCUADRADO expr:e COMMA elista:el RPARENCUADRADO
+		| exprlista:e
 			{:
-				RESULT = new TEstructuradoLista(e, el);
+				RESULT = new TEstructuradoLista(e);
 			:}
 		
 		| expr:e
 			{:
 				RESULT = new TEstructuradoLista(e);
 			:}
-			
-		| LPARENCUADRADO elista:e RPARENCUADRADO
-			{:
-				RESULT = new TEstructuradoLista(e);
-			:};	
+			;
 				
 			

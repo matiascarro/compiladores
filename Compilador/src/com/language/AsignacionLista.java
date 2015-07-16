@@ -6,13 +6,13 @@ import com.language.exceptions.ParsingException;
 public class AsignacionLista extends Comm{
 
 	Var nombre;
-	TEstructuradoLista tel;
+	Expr ex;
 
 	
-	public AsignacionLista(Var nombre, TEstructuradoLista tel) {
+	public AsignacionLista(Var nombre, Expr e) {
 		super();
 		this.nombre = nombre;
-		this.tel = tel;
+		this.ex = e;
 	}
 
 
@@ -21,7 +21,7 @@ public class AsignacionLista extends Comm{
 	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
-		Expr e = tel.evaluar(contexto);
+		Expr e = ex.evaluar(contexto);
 		
 		if(!(e instanceof TEstructuradoLista)) {
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");

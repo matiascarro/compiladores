@@ -110,6 +110,7 @@ public class Contexto {
 		if(e instanceof Valor){
 			Valor v = (Valor)e;
 			variables.put(this.calcScopeVariable(nomVariable),v);
+			System.out.println("Entre"+v.getTipo().toString()+v.getI());
 			listas.remove(this.calcScopeVariable(nomVariable));
 			diccionarios.remove(this.calcScopeVariable(nomVariable));
 		}
@@ -127,8 +128,10 @@ public class Contexto {
 			variables.remove(this.calcScopeVariable(nomVariable));
 			listas.remove(this.calcScopeVariable(nomVariable));
 		}
+		else{
+			throw new ExecutionException("No se puede actualizar la variable");
+		}
 		
-		throw new ExecutionException("No se puede actualizar la variable");
 		
 		
 	}
