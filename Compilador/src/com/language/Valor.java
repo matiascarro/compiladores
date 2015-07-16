@@ -107,6 +107,126 @@ public class Valor  extends Expr{
 	public void setTipo(TipoValor tipo) {
 		this.tipo = tipo;
 	}
+	
+	
+	public Valor ejecutarFuncionString(Var nombreFuncion, Expr p1, Expr p2) throws ExecutionException{
+		
+		Valor v = null; //new Valor(0, "", -1, true, 0, TipoValor.INT);
+		
+		if ((nombreFuncion.getNombreVariable() != "length") && (p1 == null)){
+			throw new ExecutionException("Parametro vacio en ejecutarFuncionString");
+		}
+		if ((nombreFuncion.getNombreVariable() == "replace") && (p2 == null)){
+			throw new ExecutionException("Parametro vacio en ejecutarFuncionString");
+		}
+		
+		if ((p1 != null) && (!(p1 instanceof Valor)||!(p1 instanceof TEstructuradoLista))){
+			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncionString");
+		}
+		
+		if ((p2 != null) && (!(p2 instanceof Valor)||!(p2 instanceof TEstructuradoLista))){
+			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncionString");
+		}
+		
+		TEstructuradoLista t = null;
+		TEstructuradoLista aux = null;
+		TEstructuradoLista nueva = null;
+		Valor val;
+		Valor valaux;
+		boolean encontre;
+		int cant;
+		int cantaux;
+		
+		switch (nombreFuncion.getNombreVariable()) {
+		case "count":
+			
+			val = (Valor) p1;
+			
+			cant = 0;
+			
+			while (this.s.indexOf(val.getS(), 0) != -1){
+				cant++;
+			}
+			
+			v = new Valor(0, "", cant, true, 0, TipoValor.INT);
+				
+			break;
+			
+		case "find":
+			
+			if (p1 instanceof Valor){
+				
+				// caso de dos parametros
+				if ((p2 != null)&&(p2 instanceof Valor)){
+					
+					cant = 0;
+					
+					val = (Valor) p1;
+					
+					valaux = (Valor) p2;
+					
+					if ((val.getTipo() != TipoValor.STRING)||(valaux.getTipo() != TipoValor.INT)){
+						throw new ExecutionException("Parametro invalido en funcion find de strings");
+					}
+					
+					cant = this.s.indexOf(val.getS(), valaux.getI());
+					
+					v = new Valor(0, "", cant, true, 0, TipoValor.INT);
+				
+				
+				}
+				
+				if (p2 == null){
+					
+					cant = 0;
+					
+					val = (Valor) p1;
+					
+					if ((val.getTipo() != TipoValor.STRING)){
+						throw new ExecutionException("Parametro invalido en funcion find de strings");
+					}
+					
+					cant = this.s.indexOf(val.getS());
+					
+					v = new Valor(0, "", cant, true, 0, TipoValor.INT);
+					
+				}
+			}	
+			
+			break;
+			
+		case "join":
+			//IMPLEMENTAR
+			
+			break;
+			
+		case "split":
+			//IMPLEMENTAR
+			
+			break;
+		case "replace":
+			//IMPLEMENTAR
+			
+			
+			break;
+		case "length":
+				
+				cant = s.length();
+				
+				v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
+			
+			break;
+
+		default:
+			break;
+			
+		}
+		
+		return v;
+		
+	}
+
+	
 
 	@Override
 	Valor evaluar(Contexto contexto) throws ParsingException,
