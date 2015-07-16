@@ -600,7 +600,7 @@ public class OperacionBooleana extends Expr{
 				return new Valor(0, null, 0, v1.isB() || v2.isB(), 0, TipoValor.BOOL);
 			}
 			throw new ExecutionException("Errores de tipo, no soporta " + v1.getTipo().toString() + " con " + v2.getTipo().toString() + " en la operacion");
-		case NEGACION:
+		case NOT:
 			if(v1.getTipo() == TipoValor.BOOL && v2.getTipo() == TipoValor.BOOL){
 				return new Valor(0, null, 0, !v1.isB(), 0, TipoValor.BOOL);
 			}

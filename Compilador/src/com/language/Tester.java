@@ -6,7 +6,7 @@ public class Tester {
 	public static void main(String[] args) {
 		
 		//String exptext = "19 * 3 + 3";
-		String exptext = "s = 3; end";
+		String exptext = "s = 2 ** 4 ; end";
 		
 		//Expression expobj = ExpressionParser.parse(exptext);
 		//COMENTARIO
@@ -20,7 +20,7 @@ public class Tester {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Expresion obtenida: ");
+		//System.out.println("Expresion obtenida: ");
 		
 		prog.imprimirContexto();
 		//System.out.println(expobj.toString());

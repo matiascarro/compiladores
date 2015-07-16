@@ -170,8 +170,10 @@ public class Contexto {
 	
 	public void imprimir (){
 		String s;
-		s = variables.toString();
-		System.out.println(s);
+		if (variables.isEmpty() == false){
+
+			System.out.println("no es vacia"+ variables.size());
+		}
 	}
 	
 	public void eliminarVariablesDeScope(){

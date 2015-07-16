@@ -591,49 +591,55 @@ public class OperacionBinaria extends Expr{
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
 			}
 			
-		}
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getF() * v2.getI());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setF(v1.getI() * v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
+		} else {
+			if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.INT){
+				ret = new Valor();
+				ret.setF(v1.getF() * v2.getI());
+				ret.setTipo(TipoValor.FLOAT);
+				return ret;
+			} else {
+				if (v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.INT){
+					ret = new Valor();
+					ret.setF(v1.getI() * v2.getF());
+					ret.setTipo(TipoValor.FLOAT);
+					return ret;
+				} else {
+					if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
+						ret = new Valor();
+						ret.setL(v1.getL() * v2.getI());
+						ret.setTipo(TipoValor.LONG);
+						return ret;
+					} else {
+						if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
+							ret = new Valor();
+							ret.setL(v1.getI() * v2.getL());
+							ret.setTipo(TipoValor.LONG);
+							return ret;	
+						} else {
+							if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
+								ret = new Valor();
+								ret.setF(v1.getF() * v2.getL());
+								ret.setTipo(TipoValor.FLOAT);
+								return ret;
+							} else {
+								if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
+									ret = new Valor();
+									ret.setF(v1.getL() * v2.getF());
+									ret.setTipo(TipoValor.FLOAT);
+									return ret;	
+								} else {
 		
-		if(v1.getTipo() == TipoValor.LONG && v2.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getL() * v2.getI());
-			ret.setTipo(TipoValor.LONG);
-			return ret;
+									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if(v2.getTipo() == TipoValor.LONG && v1.getTipo() == TipoValor.INT){
-			ret = new Valor();
-			ret.setL(v1.getI() * v2.getL());
-			ret.setTipo(TipoValor.LONG);
-			return ret;	
-		}
-		
-		if(v1.getTipo() == TipoValor.FLOAT && v2.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getF() * v2.getL());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;
-		}
-		if(v2.getTipo() == TipoValor.FLOAT && v1.getTipo() == TipoValor.LONG){
-			ret = new Valor();
-			ret.setF(v1.getL() * v2.getF());
-			ret.setTipo(TipoValor.FLOAT);
-			return ret;	
-		}
-		
-		throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
 	}
 	
+
 	
 	@Override
 	Valor evaluar(Contexto contexto) throws ParsingException, ExecutionException {
@@ -675,8 +681,11 @@ public class OperacionBinaria extends Expr{
 				return this.calcularTipoOperadorMatematicoModulo(v1, v2);
 				
 			case MULTIPLICACION:
-				this.calcularTipoOperadorMatematicoMultiplicacion(v1, v2);
+				return this.calcularTipoOperadorMatematicoMultiplicacion(v1, v2);
 
+			case NEGACION:
+				return this.calcularTipoOperadorMatematicoResta(v1, v2);
+				
 		default:
 			break;
 		}
