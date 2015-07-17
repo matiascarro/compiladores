@@ -12,6 +12,17 @@ public class FuncionReturn extends Comm {
 	}
 	
 	
+	
+	
+
+	public FuncionReturn(ListaExpr retorno) {
+		super();
+		this.retorno = retorno;
+	}
+
+
+
+
 
 	public ListaExpr getRetorno() {
 		return retorno;

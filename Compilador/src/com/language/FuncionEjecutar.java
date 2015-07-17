@@ -11,6 +11,16 @@ public class FuncionEjecutar extends Expr {
 	public FuncionEjecutar() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public FuncionEjecutar(Var nombreFuncion, ListaExpr parametros) {
+		super();
+		this.nombreFuncion = nombreFuncion;
+		this.parametros = parametros;
+	}
+
+
 
 	@Override
 	ListaExpr evaluar(Contexto contexto) throws ExecutionException {

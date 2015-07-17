@@ -5,8 +5,8 @@ import com.language.exceptions.ParsingException;
 
 public class AsignacionFuncion extends Comm {
 
-	ListaVar	variables;
-	ListaExpr	resultados;
+	ListaVar			variables;
+	FuncionEjecutar		funcEjec;
 	
 	public AsignacionFuncion() {
 		// TODO Auto-generated constructor stub
@@ -14,10 +14,10 @@ public class AsignacionFuncion extends Comm {
 	
 	
 
-	public AsignacionFuncion(ListaVar variables, ListaExpr expresiones) {
+	public AsignacionFuncion(ListaVar variables, FuncionEjecutar funcEjec) {
 		super();
 		this.variables = variables;
-		this.resultados = expresiones;
+		this.funcEjec = funcEjec;
 	}
 
 
@@ -25,6 +25,8 @@ public class AsignacionFuncion extends Comm {
 	@Override
 	void evaluar(Contexto contexto) throws ExecutionException, ParsingException {
 		// TODO Auto-generated method stub
+		ListaExpr	resultados = funcEjec.evaluar(contexto);
+		
 		if(variables.cantidadElementos() != resultados.cantidadElementos()){
 			throw new ExecutionException("La funcione devuelve diferente cantidad de parametros que los que se quieren asignar");
 		}
