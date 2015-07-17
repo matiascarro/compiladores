@@ -16,7 +16,9 @@ terminal LPAREN, RPAREN;
 terminal PRINT;
 terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, DOSPUNTOS;
 terminal WHILE, ENDWHILE, IF, ELSE, ENDIF;
-terminal FLENGTH;
+terminal FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
+terminal FEXTEND, FINDEX, FINSERT, FSIZE;
+
 
 terminal String ID;
 terminal String INT;
@@ -27,6 +29,7 @@ terminal String LONG;
 
 non terminal Expr expr;
 non terminal Expr exprlista;
+non terminal Expr exprfunc;
 
 non terminal Comm comm;
 non terminal ListComm lcomm;
@@ -35,11 +38,15 @@ non terminal Programa prog;
 non terminal TEstructuradoLista elista;
 
 
-precedence left LPAREN, RPAREN;
-precedence left SUMA, RESTA;
+
 precedence left DIVISION, MULTIPLICACION,DIVISION_ENTERA, MODULO,BAND, BOR, BXOR, SHIFT_IZQ, SHIFT_DER;
 precedence left AND, OR, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
 precedence left EXPONENTE, COMPLEMENTO, NOT;
+precedence left DOT;
+precedence left LPAREN, RPAREN;
+precedence left FEXTEND, FINDEX, FINSERT, FSIZE, FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
+precedence left SUMA, RESTA;
+
 
 //habria que crear el programa y setear la lista de las sentencias
 prog	::=	lcomm:l END
@@ -73,6 +80,16 @@ comm	::=  ID:i EQUAL expr:e
 				Var v = new Var(i);
 				RESULT = new AsignacionLista(v, el);
 			:}
+			
+		| ID:i EQUAL ID:l LPARENCUADRADO INT:param RPARENCUADRADO
+			{:
+				Var variable = new Var(i);
+				Var lista = new Var(l);
+				Var nombreFuncion = new Var("index");
+				OperacionesPredefinidas op = new OperacionesPredefinidas(lista, nombreFuncion, v1, v2);
+				RESULT = new Asignacion(op,variable);
+			:}
+			
 		
 		| PRINT expr:e
 			{:
@@ -93,6 +110,30 @@ comm	::=  ID:i EQUAL expr:e
 			{:
 				RESULT = new IfThenElse(e, l1, l2);
 			:}
+			
+		|ID:i1 DOT ID:i2 LPAREN RPAREN
+			{:
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
+				RESULT new CommExpr(op);
+			:}	 
+			
+		|ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
+			{:
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
+				RESULT new CommExpr(op);
+			:}	
+			
+		|ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
+			{:
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
+				RESULT new CommExpr(op);
+			:}	 
 		
 		;	
 			
@@ -264,14 +305,30 @@ expr	::= INT:i
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.MAYOR_IGUAL);
 			:}
 			
-//***************Funciones predefinidas*************************************
-					
-		| ID:i DOT FLENGTH LPAREN RPAREN
+		|ID:i1 DOT ID:i2 LPAREN RPAREN
 			{:
-				Var variable = new Var(i);
-				Var nombreFuncion = new Var("length");
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
 				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
-			:}	;
+			:}	 
+			
+		|ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
+			{:
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
+				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
+			:}	
+			
+		|ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
+			{:
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var("i2");
+				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
+			:}	 
+			;
+			
+			
+			
 					
 //***************Listas, diccionarios, etc***********************************
 			

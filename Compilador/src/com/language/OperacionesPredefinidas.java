@@ -32,11 +32,20 @@ public class OperacionesPredefinidas extends Expr{
 		
 		if (e instanceof TEstructuradoLista){
 			TEstructuradoLista lista = (TEstructuradoLista)e;
+			if (parametro1 != null){
+				parametro1 = parametro1.evaluar(contexto);
+			}
+			if (parametro2 != null){
+				parametro2 = parametro2.evaluar(contexto);
+			}
 			return lista.ejecutarFuncion(nombreFuncion, parametro1, parametro2);
 		}
 		if (e instanceof TEstructuradoDiccionario){
 			if(parametro2 != null){
 				throw new ExecutionException("Mal llamada la funcion con parametros");
+			}
+			if (parametro1 != null){
+				parametro1 = parametro1.evaluar(contexto);
 			}
 			TEstructuradoDiccionario diccionario = (TEstructuradoDiccionario)e;
 			return diccionario.ejecutarFuncion(nombreFuncion, parametro1);
@@ -44,6 +53,12 @@ public class OperacionesPredefinidas extends Expr{
 		if(e instanceof Valor){
 			Valor v = (Valor)e;
 			if(((Valor) e).getTipo() == TipoValor.STRING){
+				if (parametro1 != null){
+					parametro1 = parametro1.evaluar(contexto);
+				}
+				if (parametro2 != null){
+					parametro2 = parametro2.evaluar(contexto);
+				}
 				return v.ejecutarFuncionString(nombreFuncion, parametro1, parametro2);
 			}
 		}
