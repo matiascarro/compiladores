@@ -123,9 +123,21 @@ public class TEstructuradoDiccionario extends Expr{
 			}
 			ted.setSiguiente(ted.getSiguiente());
 		}
-		
-		
 	}
+	
+	
+	private Expr index(Valor v){
+		TEstructuradoDiccionario ted = this;
+		
+		while (ted != null){
+			if(ted.getKey().esIgual(v)){
+				return ted.getValor();
+			}
+			ted.setSiguiente(ted.getSiguiente());
+		}
+		return null;
+	}
+	
 	
 	public Expr ejecutarFuncion(Var nombreFuncion, Expr p1) throws ExecutionException{
 		Valor v = null; //new Valor(0, "", -1, true, 0, TipoValor.INT);
@@ -163,7 +175,13 @@ public class TEstructuradoDiccionario extends Expr{
 			
 		case "values":
 			return this.aLista();
-
+			
+		case "index":
+			if(!(p1 instanceof Valor)){
+				throw new ExecutionException("El parametro en la funcion tiene error de tipo");
+			}
+			aux = (Valor) p1;
+			return this.index(aux);
 		default:
 			break;
 		}
