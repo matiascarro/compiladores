@@ -37,7 +37,7 @@ public class Var extends Expr{
 		if(ret==null){
 			throw new ParsingException("La variable "+ nombreVariable + " no existe en el scope");
 		}
-		if(!(ret instanceof Valor) ||  !(ret instanceof TEstructuradoLista)){
+		if(!(ret instanceof Valor) &&  !(ret instanceof TEstructuradoLista)){
 			throw new ExecutionException("Error en evaluar");
 		}
 		

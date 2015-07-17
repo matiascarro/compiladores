@@ -53,11 +53,11 @@ public class TEstructuradoLista extends Expr{
 			throw new ExecutionException("Parametro vacio en ejecutarFuncion");
 		}
 		
-		if ((p1 != null) && (!(p1 instanceof Valor)||!(p1 instanceof TEstructuradoLista))){
+		if ((p1 != null) && (!(p1 instanceof Valor)&&!(p1 instanceof TEstructuradoLista))){
 			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncion");
 		}
 		
-		if ((p2 != null) && (!(p2 instanceof Valor)||!(p2 instanceof TEstructuradoLista))){
+		if ((p2 != null) && (!(p2 instanceof Valor)&&!(p2 instanceof TEstructuradoLista))){
 			throw new ExecutionException("Parametro de tipo invalido en ejecutarFuncion");
 		}
 		

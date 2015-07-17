@@ -48,7 +48,7 @@ prog	::=	lcomm:l END
 				:};
 
 //lista que va acumulando las sentencias
-lcomm		::= lcomm:l SEPARADOR comm:c
+lcomm		::= comm:c SEPARADOR lcomm:l
 				{:
 					
 					RESULT = new ListComm(c, l);

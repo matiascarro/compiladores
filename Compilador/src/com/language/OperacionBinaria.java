@@ -700,7 +700,7 @@ public class OperacionBinaria extends Expr{
 		ep1 = e1.evaluar(contexto);
 		ep2 = e2.evaluar(contexto);
 		
-		if(!(ep1 instanceof Valor) || !(ep2 instanceof Valor)){
+		if(!(ep1 instanceof Valor) && !(ep2 instanceof Valor)){
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		

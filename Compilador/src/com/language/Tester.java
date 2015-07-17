@@ -3,7 +3,7 @@ package com.language;
 
 public class Tester {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		//String exptext = "19 * 3 + 3";
 		String exptext = "print 3 ; end";
@@ -25,6 +25,6 @@ public class Tester {
 		prog.imprimirContexto();
 		//System.out.println(expobj.toString());
 		
-	}
+	}*/
 	
 }
