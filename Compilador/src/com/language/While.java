@@ -19,13 +19,15 @@ public class While extends Comm{
 	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
-		if(!(op instanceof OperacionBooleana)){
-			throw new ExecutionException("Expresion de while no es booleana");
-		}
-		
 		Expr e = op.evaluar(contexto);
 		
 		Valor v = (Valor) e;
+		
+		if(!(v.getTipo() == TipoValor.BOOL)){
+			throw new ExecutionException("Expresion de while no es booleana");
+		}
+		
+		
 		
 		ListComm aux = lc;
 		
