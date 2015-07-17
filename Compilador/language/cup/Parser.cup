@@ -15,6 +15,7 @@ terminal END;
 terminal LPAREN, RPAREN;
 terminal PRINT;
 terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, DOSPUNTOS;
+terminal WHILE, ENDWHILE, IF, ELSE, ENDIF;
 
 terminal String ID;
 terminal String INT;
@@ -75,7 +76,24 @@ comm	::=  ID:i EQUAL expr:e
 		| PRINT expr:e
 			{:
 				RESULT = new Print(e);
-			:};		
+			:}
+			 
+		| WHILE expr:e DOSPUNTOS lcomm:l ENDWHILE
+			{:
+				RESULT = new While(e, l);
+			:}
+		
+		| IF expr:e DOSPUNTOS lcomm:l ENDIF
+			{:
+				RESULT = new IfThen(e, l);
+			:}
+		
+		| IF expr:e DOSPUNTOS lcomm:l1 ELSE lcomm:l2 ENDIF
+			{:
+				RESULT = new IfThenElse(e, l1, l2);
+			:}
+		
+		|;	
 			
 			
 expr	::= INT:i

@@ -90,10 +90,16 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 ":" 				{ return symbol(sym.DOSPUNTOS, ":"); }
 
-
 ";" 				{ return symbol(sym.SEPARADOR, ";"); }
 
 "end" 				{ return symbol(sym.END, "end"); }
+
+"while" 			{ return symbol(sym.WHILE, "while"); }
+"endwhile" 			{ return symbol(sym.ENDWHILE, "endwhile"); }
+"if" 				{ return symbol(sym.IF, "if"); }
+"else" 				{ return symbol(sym.ELSE, "else"); }
+"endif" 			{ return symbol(sym.ENDIF, "endif"); }
+
 
 "print" 			{ return symbol(sym.PRINT, "print"); }
 

@@ -105,6 +105,7 @@ true				{ return symbol(sym.TRUE, yytext()); }
 "continue"			{ return symbol(sym.CONTINUE, "continue"); }
 "for" 				{ return symbol(sym.FOR, "for"); }
 "in" 				{ return symbol(sym.IN, "in"); }
+"endfor" 			{ return symbol(sym.ENDFOR, "endfor"); }
 
 "print" 			{ return symbol(sym.PRINT, "print"); }
 

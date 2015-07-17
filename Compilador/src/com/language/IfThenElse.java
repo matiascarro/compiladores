@@ -7,11 +7,11 @@ import com.language.exceptions.ParsingException;
 
 public class IfThenElse extends Comm{
 	
-	OperacionBooleana op;
+	Expr op;
 	ListComm lthen;
 	ListComm lelse;
 
-	public IfThenElse(OperacionBooleana o, ListComm t, ListComm e) {
+	public IfThenElse(Expr o, ListComm t, ListComm e) {
 		op = o;
 		lthen = t;
 		lelse = e; 
@@ -21,7 +21,13 @@ public class IfThenElse extends Comm{
 	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
-		Valor v = op.evaluar(contexto);
+		if(!(op instanceof OperacionBooleana)){
+			throw new ExecutionException("Expresion de while no es booleana");
+		}
+		
+		Expr e = op.evaluar(contexto);
+		
+		Valor v = (Valor) e;
 		
 		ListComm aux;
 		Comm sent;

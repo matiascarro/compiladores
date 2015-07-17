@@ -7,10 +7,10 @@ import com.language.exceptions.ParsingException;
 
 public class While extends Comm{
 	
-	OperacionBooleana op;
+	Expr op;
 	ListComm lc;
 
-	public While(OperacionBooleana o, ListComm l) {
+	public While(Expr o, ListComm l) {
 		op = o;
 		lc = l;
 	}
@@ -19,7 +19,13 @@ public class While extends Comm{
 	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
-		Valor v = op.evaluar(contexto);
+		if(!(op instanceof OperacionBooleana)){
+			throw new ExecutionException("Expresion de while no es booleana");
+		}
+		
+		Expr e = op.evaluar(contexto);
+		
+		Valor v = (Valor) e;
 		
 		ListComm aux = lc;
 		
@@ -34,7 +40,9 @@ public class While extends Comm{
 					sent.evaluar(contexto);
 				} 
 				
-				v = op.evaluar(contexto);
+				e = op.evaluar(contexto);
+				
+				v = (Valor) e;
 				
 			}
 		

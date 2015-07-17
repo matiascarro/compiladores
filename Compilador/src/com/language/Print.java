@@ -19,11 +19,8 @@ public class Print extends Comm{
 	void evaluar(Contexto contexto) throws ParsingException, ExecutionException  {
 		// TODO Auto-generated method stub
 		
-		Expr ep;
+		Expr ep = expresion.evaluar(contexto);
 		
-		
-		
-		ep = expresion.evaluar(contexto);
 		if(!(ep instanceof Valor)){
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
@@ -31,14 +28,14 @@ public class Print extends Comm{
 		
 		Valor v = (Valor)ep;
 		
-		
+		System.out.println("acas");
 		
 		if (v.getTipo() == TipoValor.STRING){
 			
 			System.out.println(v.getS());
 			
 		} else {
-			throw new ExecutionException("Valor inv�lido - Print");
+			throw new ExecutionException("Valor invalido - Print");
 		}
 		
 	}
