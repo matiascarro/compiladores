@@ -64,5 +64,16 @@ public class ListaExpr extends Expr {
 		
 		return this;
 	}
+	
+	public String toString(){
+		ListaExpr aux = this;
+		String ret = "";
+		while(aux!=null){
+			
+			ret = ret + aux.expresion.toString();
+			aux = aux.siguiente;
+		}
+		return ret;
+	}
 
 }

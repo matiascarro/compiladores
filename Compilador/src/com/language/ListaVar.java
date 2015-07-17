@@ -43,6 +43,17 @@ public class ListaVar {
 		return ret;
 	}
 	
+	public String toString(){
+		ListaVar aux = this;
+		String ret = "";
+		
+		while (aux != null){
+			ret = ret + aux.variable.toString();
+			aux = aux.siguiente;
+		}
+		return ret;
+	}
+	
 	
 
 }
