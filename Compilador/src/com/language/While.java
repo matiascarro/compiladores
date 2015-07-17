@@ -29,11 +29,12 @@ public class While extends Comm{
 		
 		
 		
-		ListComm aux = lc;
+		ListComm aux;
 		
 		if (v.getTipo() == TipoValor.BOOL){
 		
 			while (v.isB()){
+				aux = lc;
 				Comm sent = aux.getSentencia();
 				sent.evaluar(contexto);
 				while (aux.getSiguiente() != null){

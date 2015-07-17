@@ -85,6 +85,10 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 "," 				{ return symbol(sym.COMMA, ","); }
 
+"." 				{ return symbol(sym.DOT, "."); }
+
+"length" 			{ return symbol(sym.FLENGTH, "length"); }
+
 "{" 				{ return symbol(sym.LPARENCORCHETE, "{"); }
 "}" 				{ return symbol(sym.RPARENCORCHETE, "}"); }
 

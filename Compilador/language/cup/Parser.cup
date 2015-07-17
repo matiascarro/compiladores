@@ -10,12 +10,13 @@ terminal SUMA, RESTA, DIVISION, MULTIPLICACION, EXPONENTE, DIVISION_ENTERA, MODU
 terminal SHIFT_IZQ, SHIFT_DER, COMPLEMENTO, BAND, BOR, BXOR;
 terminal AND, OR, DISTINTO, IGUAL, MAYOR, MENOR, MENOR_IGUAL, MAYOR_IGUAL, NOT; 
 terminal EQUAL;
-terminal SEPARADOR;
+terminal SEPARADOR, DOT;
 terminal END;
 terminal LPAREN, RPAREN;
 terminal PRINT;
 terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, DOSPUNTOS;
 terminal WHILE, ENDWHILE, IF, ELSE, ENDIF;
+terminal FLENGTH;
 
 terminal String ID;
 terminal String INT;
@@ -93,7 +94,7 @@ comm	::=  ID:i EQUAL expr:e
 				RESULT = new IfThenElse(e, l1, l2);
 			:}
 		
-		|;	
+		;	
 			
 			
 expr	::= INT:i
@@ -110,7 +111,8 @@ expr	::= INT:i
 
 		| STRING:s
 			{:
-				Valor v = new Valor(0, s, 0, false, 0, TipoValor.STRING);
+				String aux = s.substring(1, s.length()-1);
+				Valor v = new Valor(0, aux, 0, false, 0, TipoValor.STRING);
 				RESULT = new Const(v);
 			:}
 			
@@ -260,9 +262,17 @@ expr	::= INT:i
 		| expr:l MAYOR_IGUAL expr:r
 			{:
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.MAYOR_IGUAL);
-			:};
+			:}
 			
-						
+//***************Funciones predefinidas*************************************
+					
+		| ID:i DOT FLENGTH LPAREN RPAREN
+			{:
+				Var variable = new Var(i);
+				Var nombreFuncion = new Var("length");
+				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
+			:}	;
+					
 //***************Listas, diccionarios, etc***********************************
 			
 exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
