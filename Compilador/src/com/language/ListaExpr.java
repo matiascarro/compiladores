@@ -53,7 +53,7 @@ public class ListaExpr extends Expr {
 
 
 	@Override
-	Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException {
+	ListaExpr evaluar(Contexto contexto) throws ParsingException, ExecutionException {
 
 		ListaExpr aux = this;
 		while(aux!=null){
@@ -65,12 +65,13 @@ public class ListaExpr extends Expr {
 		return this;
 	}
 	
-	public String toString(){
+	public String print(Contexto contexto) throws ParsingException, ExecutionException{
 		ListaExpr aux = this;
 		String ret = "";
+		aux = aux.evaluar(contexto);
 		while(aux!=null){
 			
-			ret = ret + aux.expresion.toString();
+			ret = ret + aux.expresion.print(contexto);
 			aux = aux.siguiente;
 		}
 		return ret;

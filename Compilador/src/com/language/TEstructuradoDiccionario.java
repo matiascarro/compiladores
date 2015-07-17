@@ -189,4 +189,12 @@ public class TEstructuradoDiccionario extends Expr{
 		return this;
 	}
 
+
+
+	@Override
+	String print(Contexto contexto) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return "No se imprime el diccionario";
+	}
+
 }

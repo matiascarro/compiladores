@@ -234,7 +234,25 @@ public class Valor  extends Expr{
 		// TODO Auto-generated method stub
 		return this;
 	}
-	
-	
+
+	@Override
+	String print(Contexto contexto) throws ExecutionException {
+		
+			switch (tipo) {
+			case BOOL:
+				return b?"True":"False";
+			case FLOAT:
+				return new Float(f).toString();
+			case INT:
+				return new Integer(i).toString();
+			case LONG:
+				return new Long(l).toString();
+			case STRING:
+				return s;
+
+			default:
+				return "No deberia pasar esto";
+			}
+		}
 }
 

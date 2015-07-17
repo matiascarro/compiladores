@@ -39,4 +39,13 @@ public class Const extends Expr{
 		return v;
 	}
 
+
+
+	@Override
+	public String print(Contexto contexto) {
+		return v.toString();
+	}
+	
+	
+
 }

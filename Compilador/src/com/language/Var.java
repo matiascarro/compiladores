@@ -46,4 +46,11 @@ public class Var extends Expr{
 		return ret;
 	}
 
+
+	@Override
+	String print(Contexto contexto) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return nombreVariable;
+	}
+
 }

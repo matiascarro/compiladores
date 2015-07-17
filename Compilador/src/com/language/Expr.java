@@ -8,5 +8,5 @@ abstract public class Expr {
 	abstract Expr evaluar(Contexto contexto) throws ParsingException, ExecutionException;
 	
 	
-
+	abstract String	print(Contexto contexto) throws ExecutionException;
 }

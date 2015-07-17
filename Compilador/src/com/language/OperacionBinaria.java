@@ -740,6 +740,14 @@ public class OperacionBinaria extends Expr{
 		
 		return null;
 	}
+	
+	@Override
+	public String print(Contexto contexto) throws ExecutionException{
+		
+		Valor v = evaluar(contexto);
+		return v.print(contexto);
+		
+	}
 
 	
 	

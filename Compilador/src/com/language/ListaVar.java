@@ -1,6 +1,9 @@
 package com.language;
 
-public class ListaVar {
+import com.language.exceptions.ExecutionException;
+import com.language.exceptions.ParsingException;
+
+public class ListaVar extends Expr{
 	
 	Var 		variable;
 	ListaVar 	siguiente;
@@ -43,15 +46,23 @@ public class ListaVar {
 		return ret;
 	}
 	
-	public String toString(){
+	
+	
+	public String print(Contexto contexto) throws ParsingException, ExecutionException{
 		ListaVar aux = this;
 		String ret = "";
-		
+		aux = aux.evaluar(contexto);
 		while (aux != null){
-			ret = ret + aux.variable.toString();
+			ret = ret + aux.variable.print(contexto);
 			aux = aux.siguiente;
 		}
 		return ret;
+	}
+
+	@Override
+	ListaVar evaluar(Contexto contexto) throws ParsingException, ExecutionException {
+		// TODO Auto-generated method stub
+		return this;
 	}
 	
 	

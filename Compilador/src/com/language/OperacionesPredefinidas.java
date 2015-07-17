@@ -1,6 +1,8 @@
 package com.language;
 
-public class OperacionesPredefinidas extends Comm{
+import com.language.exceptions.ExecutionException;
+
+public class OperacionesPredefinidas extends Expr{
 	
 	Expr variable; //es la variable a la que se le aplica la operacion, puede ser lista, diccionario, string
 	Var nombreFuncion;
@@ -20,12 +22,21 @@ public class OperacionesPredefinidas extends Comm{
 
 
 	@Override
-	void evaluar(Contexto contexto)  {
+	Expr evaluar(Contexto contexto)  {
 		// TODO Auto-generated method stub
 		// si variable no es lista o diccionario o string entonces error
 		// hay que encontrar la variable en el contexto y que no sea null
 		// si variable no existe tengo que dar error
+		return null;
 	
+	}
+
+
+
+	@Override
+	String print(Contexto contexto) throws ExecutionException {
+		Expr e = evaluar(contexto);
+		return e.print(contexto);
 	}
 	
 	

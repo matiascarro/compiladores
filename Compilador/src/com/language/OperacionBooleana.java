@@ -681,4 +681,12 @@ public class OperacionBooleana extends Expr{
 				
 	}
 
+
+
+	@Override
+	String print(Contexto contexto) throws ExecutionException {
+		Valor v = evaluar(contexto);
+		return v.print(contexto);
+	}
+
 }

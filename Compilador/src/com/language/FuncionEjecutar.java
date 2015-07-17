@@ -59,5 +59,12 @@ public class FuncionEjecutar extends Expr {
 		return null;
 		
 	}
+	
+	@Override
+	public String print(Contexto contexto) throws ExecutionException{
+		Expr e =  this.evaluar(contexto);
+		return e.print(contexto);
+				
+	}
 
 }
