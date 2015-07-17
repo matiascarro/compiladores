@@ -181,7 +181,7 @@ comm	::=  ID:i EQUAL expr:e
 		|ID:i1 DOT ID:i2 LPAREN RPAREN
 			{:
 				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
+				Var nombreFuncion = new Var(i2);
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
 				RESULT = new CommExpr(op);
 			:}	 
@@ -189,7 +189,7 @@ comm	::=  ID:i EQUAL expr:e
 		|ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
 			{:
 				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
+				Var nombreFuncion = new Var(i2);
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
 				RESULT = new CommExpr(op);
 			:}	
@@ -197,10 +197,64 @@ comm	::=  ID:i EQUAL expr:e
 		|ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
 			{:
 				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
+				Var nombreFuncion = new Var(i2);
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
 				RESULT = new CommExpr(op);
+			:}	
+			
+		|ID:asig EQUAL ID:i1 DOT ID:i2 LPAREN RPAREN 
+			{:
+				Var asigVar = new Var(asig);
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
+				RESULT = new Asignacion(op,asigVar);
 			:}	 
+			
+		|ID:asig EQUAL ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
+			{:
+				Var asigVar = new Var(asig);
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
+				RESULT = new Asignacion(op,asigVar);
+			:}	
+			
+		|ID:asig EQUAL ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
+			{:
+				Var asigVar = new Var(asig);
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
+				RESULT = new Asignacion(op,asigVar);
+			:}
+			
+		|PRINT ID:i1 DOT ID:i2 LPAREN RPAREN
+			{:
+				
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
+				RESULT = new Print(op);
+			:}	 
+			
+		|PRINT ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
+			{:
+				
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
+				RESULT = new Print(op);
+			:}	
+			
+		|PRINT ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
+			{:
+				
+				Var variable = new Var(i1);
+				Var nombreFuncion = new Var(i2);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
+				RESULT = new Print(op);
+			:}		  
 		
 
 ///*******Definicion de Funciones en Comm*************/////////////////
@@ -390,35 +444,7 @@ expr	::= INT:i
 				RESULT = new OperacionBooleana(l,r,TipoOperadorBooleano.MAYOR_IGUAL);
 			:}
 			
-		|ID:i1 DOT ID:i2 LPAREN RPAREN
-			{:
-				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
-				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
-			:}	 
-			
-		|ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
-			{:
-				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
-				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
-			:}	
-			
-		|ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
-			{:
-				Var variable = new Var(i1);
-				Var nombreFuncion = new Var("i2");
-				RESULT = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
-			:}	 
-		| ID:l LPARENCUADRADO INT:param RPARENCUADRADO
-			{:
-				
-				Var lista = new Var(l);
-				Var nombreFuncion = new Var("index");
-				Valor v = new Valor(0,null, new Integer(param), false, 0,TipoValor.INT);
-				RESULT = new OperacionesPredefinidas(lista, nombreFuncion, v, null);
-				
-			:}
+		
 			;
 			
 			
