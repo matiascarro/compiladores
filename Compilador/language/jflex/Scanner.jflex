@@ -127,6 +127,8 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 {WhiteSpace}        { /* ignore*/ }
 
+"#"[^\n]*			{ /* ignorar comentarios de una linea */ }
+
 . 					{
 						throw new ParsingException("Illegal character at line " + yyline + ", column " + yycolumn + " >> " + yytext());
 					}

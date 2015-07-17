@@ -8,8 +8,13 @@ endwhile;
 
 a = "hola mundo";
 
+
+# print a;
+
 s = a.find("l");
 s = a.length("l");
+
+# comentario prueba
 
 print s;
 print a;
