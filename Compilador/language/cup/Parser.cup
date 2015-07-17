@@ -150,7 +150,7 @@ comm	::=  ID:i EQUAL expr:e
 		| lvar:lv EQUAL ID:nomFunc LPAREN listaExpr:parametros RPAREN 
 			{:
 				Var funcion = new Var(nomFunc);
-				FuncionEjecutar fe = new FuncionEjecutar(nombreFunc, parametros); 
+				FuncionEjecutar fe = new FuncionEjecutar(funcion, parametros); 
 				RESULT = new AsignacionFuncion(lv,fe);
 			:}
 			
