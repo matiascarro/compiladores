@@ -4,13 +4,13 @@ import com.language.exceptions.ExecutionException;
 
 public class OperacionesPredefinidas extends Expr{
 	
-	Expr variable; //es la variable a la que se le aplica la operacion, puede ser lista, diccionario, string
+	Var variable; //es la variable a la que se le aplica la operacion, puede ser lista, diccionario, string
 	Var nombreFuncion;
 	Expr parametro1;
 	Expr parametro2;
 	
 	
-	public OperacionesPredefinidas(Expr variable, Var nombreFuncion,
+	public OperacionesPredefinidas(Var variable, Var nombreFuncion,
 			Expr parametro1, Expr parametro2) {
 		super();
 		this.variable = variable;
@@ -22,12 +22,33 @@ public class OperacionesPredefinidas extends Expr{
 
 
 	@Override
-	Expr evaluar(Contexto contexto)  {
+	Expr evaluar(Contexto contexto) throws ExecutionException  {
 		// TODO Auto-generated method stub
 		// si variable no es lista o diccionario o string entonces error
 		// hay que encontrar la variable en el contexto y que no sea null
 		// si variable no existe tengo que dar error
-		return null;
+		
+		Expr e = contexto.buscarVariable(variable.getNombreVariable());
+		
+		if (e instanceof TEstructuradoLista){
+			TEstructuradoLista lista = (TEstructuradoLista)e;
+			return lista.ejecutarFuncion(nombreFuncion, parametro1, parametro2);
+		}
+		if (e instanceof TEstructuradoDiccionario){
+			if(parametro2 != null){
+				throw new ExecutionException("Mal llamada la funcion con parametros");
+			}
+			TEstructuradoDiccionario diccionario = (TEstructuradoDiccionario)e;
+			return diccionario.ejecutarFuncion(nombreFuncion, parametro1);
+		}
+		if(e instanceof Valor){
+			Valor v = (Valor)e;
+			if(((Valor) e).getTipo() == TipoValor.STRING){
+				return v.ejecutarFuncionString(nombreFuncion, parametro1, parametro2);
+			}
+		}
+			
+		throw new ExecutionException("Error en la operacion predefinida");
 	
 	}
 
