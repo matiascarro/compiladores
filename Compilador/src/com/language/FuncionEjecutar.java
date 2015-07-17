@@ -38,16 +38,18 @@ public class FuncionEjecutar extends Expr {
 		if(func == null){
 			throw new ExecutionException("No existe la funcion");
 		}
-		
-		if(parametros!=null && parametros.cantidadElementos() != func.getParametros().cantidadElementos()){
-			throw new ExecutionException("Llamado con numero incorrecto de parametros");
+		if (parametros!=null){
+			if((parametros.cantidadElementos() != func.getParametros().cantidadElementos())){
+				throw new ExecutionException("Llamado con numero incorrecto de parametros");
+			}
 		}
 		contexto.aumentarScope();
 		ListaExpr auxL = parametros;
 		ListaVar variables = func.getParametros();
 		
 		while (auxL!=null){
-			contexto.actualizarOCrearVariable(auxL, variables.getVariable().getNombreVariable());
+			contexto.actualizarOCrearVariable(auxL.getExpresion(), variables.getVariable().getNombreVariable());
+			auxL = auxL.getSiguiente();
 		}
 		ListComm lista = func.getSentencias();
 		

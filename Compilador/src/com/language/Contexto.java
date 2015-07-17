@@ -107,8 +107,9 @@ public class Contexto {
 	
 	public void actualizarOCrearVariable(Expr e, String nomVariable) throws ExecutionException{
 		
-		if(e instanceof Valor){
-			Valor v = (Valor)e;
+		Expr aux = e.evaluar(this);
+		if(aux instanceof Valor){
+			Valor v = (Valor)aux;
 			variables.put(this.calcScopeVariable(nomVariable),v);
 			/*System.out.println("Entre"+v.getTipo().toString()+v.getI()+ " - int");
 			System.out.println("Entre"+v.getTipo().toString()+v.getF()+ " - float") ;
@@ -118,16 +119,16 @@ public class Contexto {
 			listas.remove(this.calcScopeVariable(nomVariable));
 			diccionarios.remove(this.calcScopeVariable(nomVariable));
 		}
-		else if(e instanceof TEstructuradoLista)
+		else if(aux instanceof TEstructuradoLista)
 		{
-			TEstructuradoLista value = (TEstructuradoLista) e;
+			TEstructuradoLista value = (TEstructuradoLista) aux;
 			listas.put(this.calcScopeVariable(nomVariable), value);
 			variables.remove(this.calcScopeVariable(nomVariable));
 			diccionarios.remove(this.calcScopeVariable(nomVariable));
 		}
-		else if(e instanceof TEstructuradoDiccionario)
+		else if(aux instanceof TEstructuradoDiccionario)
 		{
-			TEstructuradoDiccionario value = (TEstructuradoDiccionario) e;
+			TEstructuradoDiccionario value = (TEstructuradoDiccionario) aux;
 			diccionarios.put(this.calcScopeVariable(nomVariable), value);
 			variables.remove(this.calcScopeVariable(nomVariable));
 			listas.remove(this.calcScopeVariable(nomVariable));

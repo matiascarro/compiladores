@@ -16,8 +16,8 @@ terminal LPAREN, RPAREN;
 terminal PRINT;
 terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, DOSPUNTOS;
 terminal WHILE, ENDWHILE, IF, ELSE, ENDIF;
-terminal FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
-terminal FEXTEND, FINDEX, FINSERT, FSIZE;
+//terminal FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
+//terminal FEXTEND, FINDEX, FINSERT, FSIZE;
 terminal FDEF,FRETURN;
 
 
@@ -30,11 +30,8 @@ terminal String LONG;
 
 non terminal Expr 			expr;
 non terminal Expr 			exprlista;
-non terminal Expr 			exprfunc;
 non terminal ListaVar		lvar;
-non terminal Var			var;
 non terminal Valor			valor;
-non terminal FuncionReturn 	freturn;
 
 non terminal ListaExpr listaExpr;
 
@@ -46,16 +43,16 @@ non terminal TEstructuradoLista elista;
 non terminal TEstructuradoDiccionario diccionario;
 
 
-
+precedence left FRETURN;
 precedence left DIVISION, MULTIPLICACION,DIVISION_ENTERA, MODULO,BAND, BOR, BXOR, SHIFT_IZQ, SHIFT_DER;
 precedence left AND, OR, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
 precedence left EXPONENTE, COMPLEMENTO, NOT;
 precedence left DOT;
 precedence left LPAREN, RPAREN;
-precedence left FEXTEND, FINDEX, FINSERT, FSIZE, FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
+//precedence left FEXTEND, FINDEX, FINSERT, FSIZE, FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
 precedence left SUMA, RESTA;
 precedence left SEPARADOR;
-precedence left FRETURN;
+
 
 
 //habria que crear el programa y setear la lista de las sentencias
@@ -280,9 +277,22 @@ comm	::=  ID:i EQUAL expr:e
 
 ///*******Definicion de Funciones en Comm*************/////////////////
 
-		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l END 
+		|FDEF ID:nomFunc LPAREN ID:i RPAREN DOSPUNTOS lcommFunc:l END 
 			{:
 				Var variable = new Var(nomFunc); 
+				Var v = new Var(i);
+				ListaVar lv = new ListaVar(v,null);
+				RESULT = new FuncionDef(variable,lv,l);
+			:}
+			
+		|FDEF ID:nomFunc LPAREN ID:i COMMA ID:i2 RPAREN DOSPUNTOS lcommFunc:l END 
+			{:
+				Var variable = new Var(nomFunc);
+				Var v2 = new Var(i2);
+				ListaVar lv2 = new ListaVar(v2,null); 
+				Var v1 = new Var(i);
+				ListaVar lv = new ListaVar(v1,lv2);
+				
 				RESULT = new FuncionDef(variable,lv,l);
 			:}
 			
@@ -520,15 +530,14 @@ diccionario ::= LPARENCORCHETE valor:v DOSPUNTOS expr:e RPARENCORCHETE
 			;
 			
 //***************Parametros***********************************
-				
-lvar ::= 	var:v COMMA lvar:lv
-			{:
-				RESULT = new ListaVar(v,lv);
-			:}
-			;
+
 			
 listaExpr ::= expr:e COMMA listaExpr:le
 			{:
 				RESULT = new ListaExpr(e,le);
+			:}
+		| expr:e
+			{:
+				RESULT = new ListaExpr(e,null);
 			:}
 			;
