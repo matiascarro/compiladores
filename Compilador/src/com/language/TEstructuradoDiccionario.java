@@ -126,7 +126,7 @@ public class TEstructuradoDiccionario extends Expr{
 	}
 	
 	
-	private Expr index(Valor v){
+	private Expr buscar(Valor v){
 		TEstructuradoDiccionario ted = this;
 		
 		while (ted != null){
@@ -176,12 +176,12 @@ public class TEstructuradoDiccionario extends Expr{
 		case "values":
 			return this.aLista();
 			
-		case "index":
+		case "buscar":
 			if(!(p1 instanceof Valor)){
 				throw new ExecutionException("El parametro en la funcion tiene error de tipo");
 			}
 			aux = (Valor) p1;
-			return this.index(aux);
+			return this.buscar(aux);
 		default:
 			break;
 		}

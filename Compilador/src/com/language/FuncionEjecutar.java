@@ -38,7 +38,8 @@ public class FuncionEjecutar extends Expr {
 		if(func == null){
 			throw new ExecutionException("No existe la funcion");
 		}
-		if(parametros.cantidadElementos() != func.getParametros().cantidadElementos()){
+		
+		if(parametros!=null && parametros.cantidadElementos() != func.getParametros().cantidadElementos()){
 			throw new ExecutionException("Llamado con numero incorrecto de parametros");
 		}
 		contexto.aumentarScope();

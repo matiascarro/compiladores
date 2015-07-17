@@ -42,7 +42,7 @@ public class TEstructuradoLista extends Expr{
 		this.siguiente = siguiente;
 	}
 	
-	public Valor ejecutarFuncion(Var nombreFuncion, Expr p1, Expr p2) throws ExecutionException{
+	public Expr ejecutarFuncion(Var nombreFuncion, Expr p1, Expr p2) throws ExecutionException{
 		
 		Valor v = null; //new Valor(0, "", -1, true, 0, TipoValor.INT);
 		
@@ -169,29 +169,19 @@ public class TEstructuradoLista extends Expr{
 					}
 					
 					cantaux = valaux.getI();
-					
 					aux = this;
-					
 					cant = 0;
-					
 					encontre = false;
-					
 					while ((aux != null)&&(!encontre)){
-							
 						cant++;
-						
 						if (aux.e instanceof Valor){
 							val = (Valor) aux.e;
-							
 							if ((val.esIgual((Valor) p1))&&(cant>=cantaux)){
 								encontre = true;
 							}
 						}
-							
 						aux = aux.siguiente;
-						
 					}
-					
 					if (encontre) {
 						v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
 					}
@@ -200,27 +190,18 @@ public class TEstructuradoLista extends Expr{
 				// caso de 1 parametro
 				
 				if (p2 == null){
-				
 					aux = this;
-					
 					cant = 0;
-					
 					encontre = false;
-					
 					while ((aux != null)&&(!encontre)){
-						
 						cant++;
-						
 						if (aux.e instanceof Valor){
 							val = (Valor) aux.e;
-							
 							if (val.esIgual((Valor) p1)){
 								encontre = true;
 							}
 						}
-							
 						aux = aux.siguiente;
-						
 					}
 					
 					if (encontre) {
@@ -314,6 +295,28 @@ public class TEstructuradoLista extends Expr{
 				v = new Valor(0, "", cant, true, 0, TipoValor.INT);	
 			
 			break;
+			
+		case "buscar":
+			
+			if (p1 instanceof Valor){
+				
+				aux = this;
+				val = (Valor) p1;
+				if (val.getTipo() != TipoValor.INT){
+					throw new ExecutionException("Error en funcion insert con el parametro 2");
+				}
+				
+				cant = 1;
+				while ((aux != null)&&(cant != val.getI())){
+					aux = aux.siguiente;
+					cant++;
+				}
+				if (cant == val.getI()){
+					return aux.e;
+				}
+			}
+			return null;
+		
 
 		default:
 			break;

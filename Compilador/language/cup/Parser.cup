@@ -89,6 +89,8 @@ lcommFunc ::= comm:c SEPARADOR lcommFunc:l
 					
 					RESULT = new ListComm(c);
 				:}
+		
+		
 		|lcommFunc:lc SEPARADOR FRETURN listaExpr:l
 				{:
 					FuncionReturn fret = new FuncionReturn(l);
@@ -256,22 +258,53 @@ comm	::=  ID:i EQUAL expr:e
 				RESULT = new Print(op);
 			:}		  
 		
+///********************************************
+
+		| PRINT ID:i1 LPARENCUADRADO INT:i2 RPARENCUADRADO
+			{:
+				
+				Var variable = new Var(i1);
+				Valor posicion = new Valor(0, null, new Integer(i2), false, 0, TipoValor.INT);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, new Var("buscar"), posicion, null);
+				RESULT = new Print(op);
+			:}
+			
+		| ID:asig EQUAL ID:i1 LPARENCUADRADO INT:i2 RPARENCUADRADO
+			{:
+				Var asigVar = new Var(asig);
+				Var variable = new Var(i1);
+				Valor posicion = new Valor(0, null, new Integer(i2), false, 0, TipoValor.INT);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, new Var("buscar"), posicion, null);
+				RESULT = new Asignacion(op, asigVar);
+			:}	 
 
 ///*******Definicion de Funciones en Comm*************/////////////////
 
-		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l END SEPARADOR
+		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l END 
 			{:
 				Var variable = new Var(nomFunc); 
 				RESULT = new FuncionDef(variable,lv,l);
 			:}
 			
-		|ID:nomFunc LPAREN listaExpr:l RPAREN SEPARADOR
+		|FDEF ID:nomFunc LPAREN RPAREN DOSPUNTOS lcommFunc:l END 
+			{:
+				Var variable = new Var(nomFunc); 
+				RESULT = new FuncionDef(variable,null,l);
+			:}
+			
+		|ID:nomFunc LPAREN listaExpr:l RPAREN
 			{:
 				Var variable = new Var(nomFunc);
 				FuncionEjecutar fe = new FuncionEjecutar(variable, l); 
 				RESULT = new CommExpr(fe);
 			:}
 			
+		|ID:nomFunc LPAREN  RPAREN
+			{:
+				Var variable = new Var(nomFunc);
+				FuncionEjecutar fe = new FuncionEjecutar(variable, null); 
+				RESULT = new CommExpr(fe);
+			:}
 
 		
 		;	
@@ -452,11 +485,15 @@ expr	::= INT:i
 					
 //***************Listas, diccionarios, etc***********************************
 			
-exprlista ::=  LPARENCUADRADO elista:e RPARENCUADRADO
+exprlista ::=  LPARENCUADRADO expr:e RPARENCUADRADO
 			{:
 				RESULT = new TEstructuradoLista(e);
 			:}
-		
+			
+		| LPARENCUADRADO expr:e COMMA elista:el RPARENCUADRADO
+			{:
+				RESULT = new TEstructuradoLista(e, el);
+			:}
 		;
 
 
@@ -464,12 +501,7 @@ elista	::=  expr:e COMMA elista:el
 			{:
 				RESULT = new TEstructuradoLista(e, el);
 			:}
-		
-		| exprlista:e
-			{:
-				RESULT = new TEstructuradoLista(e);
-			:}
-		
+
 		| expr:e
 			{:
 				RESULT = new TEstructuradoLista(e);
