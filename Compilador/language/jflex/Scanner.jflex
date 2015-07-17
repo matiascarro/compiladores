@@ -87,22 +87,7 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 "." 				{ return symbol(sym.DOT, "."); }
 
-"has_key" 			{ return symbol(sym.FHASKEY, "has_key"); }
-"items" 			{ return symbol(sym.FITEMS, "items"); }
-"keys"  			{ return symbol(sym.FKEYS, "keys"); }
-"pop" 				{ return symbol(sym.FPOP, "pop"); }
-"values" 			{ return symbol(sym.FVALUES, "values"); }
-"count" 			{ return symbol(sym.FCOUNT, "count"); }
-"find"	 			{ return symbol(sym.FFIND, "find"); }
-"join"	 			{ return symbol(sym.FJOIN, "join"); }
-"split" 			{ return symbol(sym.FSPLIT, "split"); }
-"replace" 			{ return symbol(sym.FREPLACE, "replace"); }
-"length" 			{ return symbol(sym.FLENGTH, "length"); }
-"append" 			{ return symbol(sym.FAPPEND, "append"); }
-"extend" 			{ return symbol(sym.FEXTEND, "extend"); }
-"index" 			{ return symbol(sym.FINDEX, "index"); }
-"insert"	 		{ return symbol(sym.FINSERT, "insert"); }
-"size"	 			{ return symbol(sym.FSIZE, "size"); }
+
 
 "def"				{ return symbol(sym.FDEF, "def"); }
 "return"			{ return symbol(sym.FRETURN, "return"); }

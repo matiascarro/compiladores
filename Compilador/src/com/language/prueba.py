@@ -1,4 +1,4 @@
-
+c = "hola mundo";
 b = 4;
 
 while b > 2 :
@@ -8,7 +8,8 @@ endwhile;
 
 a = "hola mundo";
 
-s = a.length();
+s = a.find("l");
+s = a.length("l");
 
 print s;
 print a;
