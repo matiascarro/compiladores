@@ -205,7 +205,7 @@ comm	::=  ID:i EQUAL expr:e
 
 ///*******Definicion de Funciones en Comm*************/////////////////
 
-		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l SEPARADOR 
+		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l END SEPARADOR
 			{:
 				Var variable = new Var(nomFunc); 
 				RESULT = new FuncionDef(variable,lv,l);
