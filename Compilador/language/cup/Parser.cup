@@ -18,6 +18,7 @@ terminal LPARENCUADRADO, RPARENCUADRADO, COMMA, LPARENCORCHETE, RPARENCORCHETE, 
 terminal WHILE, ENDWHILE, IF, ELSE, ENDIF;
 terminal FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
 terminal FEXTEND, FINDEX, FINSERT, FSIZE;
+terminal FDEF,FRETURN;
 
 
 terminal String ID;
@@ -27,12 +28,17 @@ terminal String STRING;
 terminal Boolean BOOLEAN;
 terminal String LONG;
 
-non terminal Expr expr;
-non terminal Expr exprlista;
-non terminal Expr exprfunc;
+non terminal Expr 			expr;
+non terminal Expr 			exprlista;
+non terminal Expr 			exprfunc;
+non terminal ListaVar		lvar;
+non terminal Var			var;
+non terminal FuncionReturn 	freturn;
+
+non terminal ListaExpr listaExpr;
 
 non terminal Comm comm;
-non terminal ListComm lcomm;
+non terminal ListComm lcomm,lcommFunc;
 non terminal Programa prog;
 
 non terminal TEstructuradoLista elista;
@@ -46,6 +52,8 @@ precedence left DOT;
 precedence left LPAREN, RPAREN;
 precedence left FEXTEND, FINDEX, FINSERT, FSIZE, FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
 precedence left SUMA, RESTA;
+precedence left SEPARADOR;
+precedence left FRETURN;
 
 
 //habria que crear el programa y setear la lista de las sentencias
@@ -67,12 +75,60 @@ lcomm		::= comm:c SEPARADOR lcomm:l
 					
 					RESULT = new ListComm(c);
 				:};
+				
+lcommFunc ::= comm:c SEPARADOR lcommFunc:l
+				{:
+					
+					RESULT = new ListComm(c, l);
+				:}
+		
+		| comm:c SEPARADOR
+				{:
+					
+					RESULT = new ListComm(c);
+				:}
+		|lcommFunc:lc SEPARADOR FRETURN listaExpr:l
+				{:
+					FuncionReturn fret = new FuncionReturn(l);
+					ListComm sig = lc;
+					while(sig.getSiguiente() != null){
+						sig=sig.getSiguiente();
+					}
+					sig.setSiguiente(new ListComm(fret));
+					RESULT = lc;
+				:}
+				
+		|lcommFunc:lc SEPARADOR FRETURN listaExpr:l SEPARADOR lcommFunc: otrolc
+				{:
+					FuncionReturn fret = new FuncionReturn(l);
+					ListComm sig = lc;
+					ListComm elRet = new ListComm(fret);
+					elRet.setSiguiente(otrolc);
+					while(sig.getSiguiente() != null){
+						sig=sig.getSiguiente();
+					}
+					sig.setSiguiente(elRet);
+					RESULT = lc;
+				:}
+				
+		|FRETURN listaExpr:l SEPARADOR
+				{:
+					
+					RESULT = new ListComm(new FuncionReturn(l));
+				:}
+				
+			
+		;		
+			
+		
+		
+		
 			
 			
 comm	::=  ID:i EQUAL expr:e
 			{:
 				Var v = new Var(i);
-				RESULT = new Asignacion(e, v);
+				RESULT = new Asignacion(e, v); 
 			:}
 		
 		| ID:i EQUAL exprlista:el
@@ -86,8 +142,16 @@ comm	::=  ID:i EQUAL expr:e
 				Var variable = new Var(i);
 				Var lista = new Var(l);
 				Var nombreFuncion = new Var("index");
-				OperacionesPredefinidas op = new OperacionesPredefinidas(lista, nombreFuncion, v1, v2);
+				Valor v = new Valor(0,null, new Integer(param), false, 0,TipoValor.INT);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(lista, nombreFuncion, v, null);
 				RESULT = new Asignacion(op,variable);
+			:}
+			
+		| lvar:lv EQUAL ID:nomFunc LPAREN listaExpr:parametros RPAREN 
+			{:
+				Var funcion = new Var(nomFunc);
+				FuncionEjecutar fe = new FuncionEjecutar(nombreFunc, parametros); 
+				RESULT = new AsignacionFuncion(lv,fe);
 			:}
 			
 		
@@ -111,12 +175,16 @@ comm	::=  ID:i EQUAL expr:e
 				RESULT = new IfThenElse(e, l1, l2);
 			:}
 			
+		
+			
+///*******Operaciones predefinidas en Comm*************/////////////////
+			
 		|ID:i1 DOT ID:i2 LPAREN RPAREN
 			{:
 				Var variable = new Var(i1);
 				Var nombreFuncion = new Var("i2");
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, null, null);
-				RESULT new CommExpr(op);
+				RESULT = new CommExpr(op);
 			:}	 
 			
 		|ID:i1 DOT ID:i2 LPAREN expr:e RPAREN
@@ -124,7 +192,7 @@ comm	::=  ID:i EQUAL expr:e
 				Var variable = new Var(i1);
 				Var nombreFuncion = new Var("i2");
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e, null);
-				RESULT new CommExpr(op);
+				RESULT = new CommExpr(op);
 			:}	
 			
 		|ID:i1 DOT ID:i2 LPAREN expr:e1 COMMA expr:e2 RPAREN
@@ -132,8 +200,25 @@ comm	::=  ID:i EQUAL expr:e
 				Var variable = new Var(i1);
 				Var nombreFuncion = new Var("i2");
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, nombreFuncion, e1, e2);
-				RESULT new CommExpr(op);
+				RESULT = new CommExpr(op);
 			:}	 
+
+///*******Definicion de Funciones en Comm*************/////////////////
+
+		|FDEF ID:nomFunc LPAREN lvar:lv RPAREN DOSPUNTOS lcommFunc:l SEPARADOR 
+			{:
+				Var variable = new Var(nomFunc); 
+				RESULT = new FuncionDef(variable,lv,l);
+			:}
+			
+		|ID:nomFunc LPAREN listaExpr:l RPAREN SEPARADOR
+			{:
+				Var variable = new Var(nomFunc);
+				FuncionEjecutar fe = new FuncionEjecutar(variable, l); 
+				RESULT = new CommExpr(fe);
+			:}
+			
+
 		
 		;	
 			
@@ -355,5 +440,18 @@ elista	::=  expr:e COMMA elista:el
 				RESULT = new TEstructuradoLista(e);
 			:}
 			;
-				
 			
+			
+//***************Parametros***********************************
+				
+lvar ::= 	var:v COMMA lvar:lv
+			{:
+				RESULT = new ListaVar(v,lv);
+			:}
+			;
+			
+listaExpr ::= expr:e COMMA listaExpr:le
+			{:
+				RESULT = new ListaExpr(e,le);
+			:}
+			;

@@ -104,6 +104,9 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 "insert"	 		{ return symbol(sym.FINSERT, "insert"); }
 "size"	 			{ return symbol(sym.FSIZE, "size"); }
 
+"def"				{ return symbol(sym.FDEF, "def"); }
+"return"			{ return symbol(sym.FRETURN, "return"); }
+
 
 "{" 				{ return symbol(sym.LPARENCORCHETE, "{"); }
 "}" 				{ return symbol(sym.RPARENCORCHETE, "}"); }
