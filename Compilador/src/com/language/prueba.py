@@ -1,22 +1,14 @@
-c = "hola mundo";
-b = 4;
+print "PRUEBA 5";
 
-while b > 2 :
-a = b - 1;
-b = a;
-endwhile;
+# Vamos a probar diccionario
 
-a = "hola mundo";
+a = {
+	"Love Actually": "Richart Curtis", 
+	"Kill Bill": "Tarantino", 
+	"Amelie": "Jeunet"
+};
 
+print a["Kill Bill"];
 
-# print a;
-
-s = a.find("l");
-s = a.length("l");
-
-# comentario prueba
-
-print s;
-print a;
 
 end
