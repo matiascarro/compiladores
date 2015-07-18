@@ -42,7 +42,7 @@ public class Asignacion extends Comm {
 		
 		Expr ep = e.evaluar(contexto);
 		
-		if(!(ep instanceof Valor)) {
+		if(!(ep instanceof Valor) && !(ep instanceof TEstructuradoLista) && (ep instanceof TEstructuradoDiccionario) ) {
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		

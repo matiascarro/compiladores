@@ -146,7 +146,7 @@ public class TEstructuradoDiccionario extends Expr{
 			throw new ExecutionException("Parametro vacio en ejecutarFuncion");
 		}
 		
-		if((nombreFuncion.getNombreVariable() != "has_key" && nombreFuncion.getNombreVariable()!="pop" && nombreFuncion.getNombreVariable()!="buscar") && (p1 != null)){
+		if(((nombreFuncion.getNombreVariable() == "has_key") || (nombreFuncion.getNombreVariable()=="pop") || (nombreFuncion.getNombreVariable()=="buscar")) && (p1 == null)){
 			throw new ExecutionException("No usa parametros en ejecutarFuncion");
 		}
 		Valor aux;
