@@ -25,7 +25,7 @@ public class ExpressionParser {
 			return exp;
 
 		} catch (Throwable ex) {
-			throw new ParsingException("Error parsing source: " + ex.getMessage());
+			throw new ParsingException("Error parsing source: " + ex.getMessage() + Scanner.getGlobalLine());
 		}
 
 	}

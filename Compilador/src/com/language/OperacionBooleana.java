@@ -92,7 +92,7 @@ public class OperacionBooleana extends Expr{
 			case STRING:
 				ret = new Valor();
 				ret.setTipo(TipoValor.BOOL);
-				ret.setB(v1.getS() != v2.getS());
+				ret.setB(!v1.getS().equals(v2.getS()));
 				return ret;
 
 			default:
@@ -183,7 +183,7 @@ public class OperacionBooleana extends Expr{
 			case STRING:
 				ret = new Valor();
 				ret.setTipo(TipoValor.BOOL);
-				ret.setB(v1.getS() == v2.getS());
+				ret.setB(v1.getS().equals(v2.getS()) );
 				return ret;
 
 			default:

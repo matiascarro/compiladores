@@ -14,12 +14,21 @@ import com.language.model.expression.*;
 
 %class Scanner
 %{
+	private static int globalLine = 0;
 	private SymbolFactory sf;
 	private StringBuffer string = new StringBuffer();
 
 	public Scanner(java.io.InputStream r, SymbolFactory sf) {
 		this(r);
 		this.sf=sf;
+	}
+	
+	public static int getGlobalLine(){
+		return yyline;
+	}
+	
+	public static void sumarUno(){
+		globalLine++;
 	}
 
 	private Symbol symbol(int type) {
@@ -107,8 +116,7 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 "if" 				{ return symbol(sym.IF, "if"); }
 "else" 				{ return symbol(sym.ELSE, "else"); }
 "endif" 			{ return symbol(sym.ENDIF, "endif"); }
-
-
+ 
 "print" 			{ return symbol(sym.PRINT, "print"); }
 
 \"([^\"\r\n\t]*)\"	{ return symbol(sym.STRING, yytext()); }
@@ -123,7 +131,7 @@ DecLongLiteral    = {IntegerLiteral} [lL]
 
 {FloatLiteral}		{ return symbol(sym.FLOAT, yytext()); }
 					
-
+{LineTerminator} 	{ sumarUno(); }
 
 {WhiteSpace}        { /* ignore*/ }
 

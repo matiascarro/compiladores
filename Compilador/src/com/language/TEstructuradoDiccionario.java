@@ -70,7 +70,7 @@ public class TEstructuradoDiccionario extends Expr{
 			if(ted.getKey().esIgual(v1)){
 				return true;
 			}
-			ted.setSiguiente(ted.getSiguiente());
+			ted=ted.getSiguiente();
 		}
 		
 		return false;
@@ -121,7 +121,7 @@ public class TEstructuradoDiccionario extends Expr{
 			if(ted.getSiguiente().getKey().esIgual(v1)){
 				ted.setSiguiente(ted.getSiguiente().getSiguiente());
 			}
-			ted.setSiguiente(ted.getSiguiente());
+			ted=ted.getSiguiente();
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class TEstructuradoDiccionario extends Expr{
 			if(ted.getKey().esIgual(v)){
 				return ted.getValor();
 			}
-			ted.setSiguiente(ted.getSiguiente());
+			ted=ted.getSiguiente();
 		}
 		return null;
 	}
@@ -146,7 +146,7 @@ public class TEstructuradoDiccionario extends Expr{
 			throw new ExecutionException("Parametro vacio en ejecutarFuncion");
 		}
 		
-		if((nombreFuncion.getNombreVariable() != "has_key" || nombreFuncion.getNombreVariable()!="pop") && (p1 != null)){
+		if((nombreFuncion.getNombreVariable() != "has_key" && nombreFuncion.getNombreVariable()!="pop" && nombreFuncion.getNombreVariable()!="buscar") && (p1 != null)){
 			throw new ExecutionException("No usa parametros en ejecutarFuncion");
 		}
 		Valor aux;

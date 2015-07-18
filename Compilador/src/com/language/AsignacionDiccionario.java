@@ -54,7 +54,7 @@ public class AsignacionDiccionario extends Comm {
 		
 		Expr e = diccionario.evaluar(contexto);
 		
-		if(!(e instanceof TEstructuradoLista)) {
+		if(!(e instanceof TEstructuradoDiccionario)) {
 			throw new ExecutionException("Error de tipo, errores cuando se quiere asignar");
 		}
 		

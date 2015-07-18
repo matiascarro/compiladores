@@ -37,13 +37,13 @@ public class ProgramaParser {
 			prog.ejecutarPrograma();
 
 		} catch (ParsingException ex) {
-			ex.printStackTrace();
+			System.out.println(ex.getMessage() +  Scanner.getGlobalLine());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage() + Scanner.getGlobalLine());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage() + Scanner.getGlobalLine());
 		}
 
 	}

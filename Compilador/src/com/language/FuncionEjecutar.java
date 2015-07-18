@@ -50,6 +50,7 @@ public class FuncionEjecutar extends Expr {
 		while (auxL!=null){
 			contexto.actualizarOCrearVariable(auxL.getExpresion(), variables.getVariable().getNombreVariable());
 			auxL = auxL.getSiguiente();
+			variables = variables.getSiguiente();
 		}
 		ListComm lista = func.getSentencias();
 		

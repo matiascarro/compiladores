@@ -86,6 +86,11 @@ public class OperacionBinaria extends Expr{
 				ret.setTipo(TipoValor.LONG);
 				ret.setL(v1.getL() + v2.getL());
 				return ret;
+			case STRING:
+				ret = new Valor();
+				ret.setTipo(TipoValor.STRING);
+				ret.setS(v1.getS() + v2.getS());
+				return ret;
 
 			default:
 				throw new ParsingException("No se puede sumar operadores de tipo " +v1.getTipo().toString() + " con tipo "+v2.getTipo().toString() );
@@ -130,8 +135,16 @@ public class OperacionBinaria extends Expr{
 									ret.setTipo(TipoValor.FLOAT);
 									return ret;	
 								} else {
-		
-									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+									if(v1.getTipo() == TipoValor.STRING && v2.getTipo() == TipoValor.INT){
+										ret = new Valor();
+										ret.setS(v1.getS() + v2.getI());
+										ret.setTipo(TipoValor.STRING);
+										return ret;	
+									} else {
+										
+												throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+									
+									}
 								}
 							}
 						}
@@ -615,6 +628,7 @@ public class OperacionBinaria extends Expr{
 	private Valor calcularTipoOperadorMatematicoMultiplicacion(Valor v1, Valor v2) throws ExecutionException, ParsingException{
 		
 		Valor ret;
+		int i;
 		
 		if(v1.getTipo() == v2.getTipo()){
 			
@@ -676,8 +690,21 @@ public class OperacionBinaria extends Expr{
 									ret.setTipo(TipoValor.FLOAT);
 									return ret;	
 								} else {
+									if(v1.getTipo() == TipoValor.STRING && v2.getTipo() == TipoValor.INT){
+										ret = new Valor();
+										i = v2.getI();
+										ret.setS(v1.getS());
+										while (i!=0){
+											ret.setS(ret.getS() + v1.getS());
+											i--;
+										}
+										ret.setTipo(TipoValor.STRING);
+										return ret;	
+									} else {
 		
-									throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+										throw new ParsingException("Los tipos "+ v1 + "y "+ v2 + " son incompatibles");
+								
+									}
 								}
 							}
 						}

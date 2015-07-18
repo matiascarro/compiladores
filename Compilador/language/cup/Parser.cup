@@ -274,6 +274,26 @@ comm	::=  ID:i EQUAL expr:e
 				Valor posicion = new Valor(0, null, new Integer(i2), false, 0, TipoValor.INT);
 				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, new Var("buscar"), posicion, null);
 				RESULT = new Asignacion(op, asigVar);
+			:}
+			
+		| PRINT ID:i1 LPARENCUADRADO STRING:i2 RPARENCUADRADO
+			{:
+				
+				Var variable = new Var(i1);
+				String aux = i2.substring(1, i2.length()-1);
+				Valor posicion = new Valor(0, aux, 0, false, 0, TipoValor.STRING);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, new Var("buscar"), posicion, null);
+				RESULT = new Print(op);
+			:}
+			
+		| ID:asig EQUAL ID:i1 LPARENCUADRADO STRING:i2 RPARENCUADRADO
+			{:
+				Var asigVar = new Var(asig);
+				Var variable = new Var(i1);
+				String aux = i2.substring(1, i2.length()-1);
+				Valor posicion = new Valor(0, aux, 0, false, 0, TipoValor.STRING);
+				OperacionesPredefinidas op = new OperacionesPredefinidas(variable, new Var("buscar"), posicion, null);
+				RESULT = new Asignacion(op, asigVar);
 			:}	 
 
 ///*******Definicion de Funciones en Comm*************/////////////////
