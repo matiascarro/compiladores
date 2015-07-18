@@ -44,13 +44,14 @@ non terminal TEstructuradoDiccionario diccionario;
 
 
 precedence left FRETURN;
+precedence left SUMA, RESTA;
 precedence left DIVISION, MULTIPLICACION,DIVISION_ENTERA, MODULO,BAND, BOR, BXOR, SHIFT_IZQ, SHIFT_DER;
-precedence left AND, OR, IGUAL, DISTINTO, MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
+precedence left MENOR, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
+precedence left AND, OR, IGUAL, DISTINTO;
 precedence left EXPONENTE, COMPLEMENTO, NOT;
 precedence left DOT;
 precedence left LPAREN, RPAREN;
 //precedence left FEXTEND, FINDEX, FINSERT, FSIZE, FLENGTH, FHASKEY, FITEMS, FKEYS, FPOP, FVALUES, FCOUNT, FFIND, FJOIN, FSPLIT, FREPLACE, FAPPEND;
-precedence left SUMA, RESTA;
 precedence left SEPARADOR;
 
 
@@ -517,15 +518,25 @@ elista	::=  expr:e COMMA elista:el
 				RESULT = new TEstructuradoLista(e);
 			:}
 			;
+
 			
 			
-diccionario ::= LPARENCORCHETE valor:v DOSPUNTOS expr:e RPARENCORCHETE
+diccionario ::= STRING:s DOSPUNTOS expr:e
 			{:
+				String aux = s.substring(1, s.length()-1);
+				Valor v = new Valor(0, aux, 0, false, 0, TipoValor.STRING);
 				RESULT = new TEstructuradoDiccionario(e,v,null);
 			:}
-		| LPARENCORCHETE valor:v DOSPUNTOS expr:e COMMA diccionario:l RPARENCORCHETE
+		|  STRING:s DOSPUNTOS expr:e COMMA diccionario:l
 			{:
+				String aux = s.substring(1, s.length()-1);
+				Valor v = new Valor(0, aux, 0, false, 0, TipoValor.STRING);
 				RESULT = new TEstructuradoDiccionario(e,v,l);
+			:}
+		| LPARENCORCHETE diccionario:d RPARENCORCHETE
+			{:
+				
+				RESULT = d;
 			:}
 			;
 			
@@ -541,3 +552,4 @@ listaExpr ::= expr:e COMMA listaExpr:le
 				RESULT = new ListaExpr(e,null);
 			:}
 			;
+			
